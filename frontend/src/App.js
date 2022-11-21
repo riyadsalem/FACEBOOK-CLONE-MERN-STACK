@@ -1,12 +1,12 @@
-import { Home } from "./svg";
 const App = () => {
+  const getJson = async () => {
+    const res = fetch("http://localhost:8000");
+    console.log(res);
+  };
+  getJson();
   return (
     <>
-      <div>
-        WELCOME FRONTEND <br />
-        <Home />
-        <i className="friends_suggestions_icon"></i>
-      </div>
+      <div>WELCOME FRONTEND</div>
     </>
   );
 };
