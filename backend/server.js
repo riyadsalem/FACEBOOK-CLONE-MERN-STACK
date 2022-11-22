@@ -1,7 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
+const dotenv = require("dotenv");
 const app = express();
+dotenv.config();
 
 const options = {
   origin: "http://localhost:3000",
@@ -9,11 +11,9 @@ const options = {
 };
 app.use(cors(options));
 
-// const userRoutes = require("./routes/user");
-// app.use("/", userRoutes);
-
 fs.readdirSync("./routes").map((route) =>
   app.use("/", require("./routes/" + route))
 );
 
-app.listen(8000, () => console.log("SERVER IS LISTINING...."));
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => console.log(`SERVER IS RUNNING ON PORT ${PORT}`));
