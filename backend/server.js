@@ -5,7 +5,6 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 
 const app = express();
-// dotenv.config();
 dotenv.config({ path: "./vars/.env" });
 
 const options = {
@@ -13,6 +12,7 @@ const options = {
   useSuccessStatus: 200,
 };
 app.use(cors(options));
+app.use(express.json());
 
 // ROUTES
 fs.readdirSync("./routes").map((route) => {

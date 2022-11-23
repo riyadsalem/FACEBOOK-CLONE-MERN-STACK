@@ -1,6 +1,6 @@
 const App = () => {
   const getJson = async () => {
-    const res = fetch("http://localhost:8000");
+    const res = fetch("http://localhost:8000/user");
     console.log(res);
   };
   getJson();
