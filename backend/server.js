@@ -2,8 +2,11 @@ const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
 const dotenv = require("dotenv");
+const mongoose = require("mongoose");
+
 const app = express();
-dotenv.config();
+// dotenv.config();
+dotenv.config({ path: "./vars/.env" });
 
 const options = {
   origin: "http://localhost:3000",
@@ -11,9 +14,19 @@ const options = {
 };
 app.use(cors(options));
 
-fs.readdirSync("./routes").map((route) =>
-  app.use("/", require("./routes/" + route))
-);
+// ROUTES
+fs.readdirSync("./routes").map((route) => {
+  app.use("/", require(`./routes/${route}`));
+});
 
+// DATABASE
+mongoose
+  .connect(process.env.DATABASE_URL, {
+    useNewUrlParser: true,
+  })
+  .then(() => console.log("DATABASE CONNECTED SUCCESSFULLY"))
+  .catch((err) => console.log("ERROR CONNECTING TO MONGODB", err));
+
+// SERVER
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => console.log(`SERVER IS RUNNING ON PORT ${PORT}`));
