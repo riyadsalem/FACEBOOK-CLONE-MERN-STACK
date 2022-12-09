@@ -1,3 +1,4 @@
+const User = require("../models/user");
 /*
 Email RegEx
 (yourname)@(domain).(extension)(.again)
@@ -18,4 +19,19 @@ exports.validateLength = (text, min, max) => {
     return false;
   }
   return true;
+};
+
+exports.validateUsername = async (username) => {
+  let condation = false;
+  do {
+    let check = await User.findOne({ username });
+    if (check) {
+      //change username
+      username += (+new Date() * Math.random()).toString().substring(0, 1);
+      condation = true;
+    } else {
+      condation = false;
+    }
+  } while (condation);
+  return username;
 };
