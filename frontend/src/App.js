@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Login, Home, Profile } from "./pages";
+
 const App = () => {
   return (
     <>
