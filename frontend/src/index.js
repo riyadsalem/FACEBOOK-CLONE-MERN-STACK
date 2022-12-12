@@ -7,6 +7,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 
+/*
 // Action
 const increment = () => {
   return {
@@ -43,6 +44,7 @@ store.dispatch(increment());
 store.dispatch(increment());
 store.dispatch(Decrement());
 store.dispatch(Decrement());
+*/
 
 ReactDOM.render(
   <Router>
