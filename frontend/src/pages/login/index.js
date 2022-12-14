@@ -1,7 +1,22 @@
 import "./style.css";
 import { Formik, Form } from "formik";
 import { Link } from "react-router-dom";
+import LoginInput from "../../components/inputs/logininput";
+import { useState } from "react";
+
+const loginInfos = {
+  email: "",
+  password: "",
+};
 export default function Login() {
+  const [login, setLogin] = useState(loginInfos);
+  const { email, password } = login;
+  // console.log(login);
+  const handleLoginChange = (e) => {
+    const { name, value } = e.target;
+    setLogin({ ...login, [name]: value });
+  };
+
   return (
     <>
       <div className="login">
@@ -10,16 +25,28 @@ export default function Login() {
             <div className="login_1">
               <img src="../../icons/facebook.svg" alt="" />
               <span>
-                Connect with friends and the world around you on Facebook.
+                Facebook helps you connect and share with the people in you
+                life.
               </span>
             </div>
             <div className="login_2">
               <div className="login_2_wrap">
-                <Formik>
+                <Formik enableReinitialize initialValues={{ email, password }}>
                   {(formik) => (
                     <Form>
-                      <input type="text" />
-                      <input type="text" />
+                      <LoginInput
+                        type="text"
+                        name="email"
+                        placeholder="Email address or Phone number"
+                        onChange={handleLoginChange}
+                      />
+
+                      <LoginInput
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        onChange={handleLoginChange}
+                      />
                       <button type="submit" className="blue_btn">
                         Log In
                       </button>
