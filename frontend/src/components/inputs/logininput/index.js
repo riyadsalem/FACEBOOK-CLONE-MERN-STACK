@@ -8,7 +8,6 @@ export default function LoginInput({ placeholder, bottom, ...props }) {
   const desktopView = useMediaQuery({
     query: "(min-width:850px)",
   });
-  // console.log(desktopView); // return true or false
 
   return (
     <div className="input_wrap">
