@@ -1,16 +1,29 @@
 import "./style.css";
 import { useField, ErrorMessage } from "formik";
+import { useMediaQuery } from "react-responsive";
 
 export default function LoginInput({ placeholder, bottom, ...props }) {
   const [field, meta] = useField(props);
-  // console.log(meta);
+
+  const desktopView = useMediaQuery({
+    query: "(min-width:850px)",
+  });
+  // console.log(desktopView); // return true or false
+
   return (
     <div className="input_wrap">
       {meta.touched && meta.error && !bottom && (
-        <div className="input_error" style={{ transform: "translateY(3px)" }}>
+        <div
+          className={
+            desktopView ? "input_error input_error_desctop" : "input_error"
+          }
+          style={{ transform: "translateY(3px)" }}
+        >
           {meta.touched && meta.error && <ErrorMessage name={field.name} />}
           {meta.touched && meta.error && (
-            <div className="error_arrow_top"></div>
+            <div
+              className={desktopView ? "error-arrow-left" : "error_arrow_top"}
+            ></div>
           )}
         </div>
       )}
@@ -24,16 +37,28 @@ export default function LoginInput({ placeholder, bottom, ...props }) {
       />
 
       {meta.touched && meta.error && bottom && (
-        <div className="input_error" style={{ transform: "translateY(2px)" }}>
+        <div
+          className={
+            desktopView ? "input_error input_error_desctop" : "input_error"
+          }
+          style={{ transform: "translateY(2px)" }}
+        >
           {meta.touched && meta.error && <ErrorMessage name={field.name} />}
           {meta.touched && meta.error && (
-            <div className="error_arrow_bottom"></div>
+            <div
+              className={
+                desktopView ? "error-arrow-left" : "error_arrow_bottom"
+              }
+            ></div>
           )}
         </div>
       )}
 
       {meta.touched && meta.error && (
-        <i className="error_icon" style={{ top: `${!bottom && "63%"}` }}></i>
+        <i
+          className="error_icon"
+          style={{ top: `${!bottom && !desktopView ? "63%" : "15px"}` }}
+        ></i>
       )}
     </div>
   );
