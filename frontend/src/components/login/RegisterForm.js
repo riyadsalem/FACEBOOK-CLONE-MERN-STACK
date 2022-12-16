@@ -93,28 +93,30 @@ export default function RegisterForm() {
               <div className="reg_line">
                 <RegisterInput
                   type="text"
-                  name="first_name"
                   placeholder="First name"
+                  name="first_name"
                   onChange={handleRegisterChange}
                 />
                 <RegisterInput
                   type="text"
+                  placeholder="Surname"
                   name="last_name"
-                  placeholder="Last name"
                   onChange={handleRegisterChange}
                 />
               </div>
               <div className="reg_line">
                 <RegisterInput
                   type="text"
+                  placeholder="Mobile number or email address"
                   name="email"
-                  placeholder="Mobile number or email"
                   onChange={handleRegisterChange}
                 />
+              </div>
+              <div className="reg_line">
                 <RegisterInput
                   type="password"
+                  placeholder="New password"
                   name="password"
-                  placeholder="New Password"
                   onChange={handleRegisterChange}
                 />
               </div>
@@ -128,8 +130,8 @@ export default function RegisterForm() {
                     value={bDay}
                     onChange={handleRegisterChange}
                   >
-                    {days.map((day, index) => (
-                      <option value={day} key={index}>
+                    {days.map((day, i) => (
+                      <option value={day} key={i}>
                         {day}
                       </option>
                     ))}
@@ -139,8 +141,8 @@ export default function RegisterForm() {
                     value={bMonth}
                     onChange={handleRegisterChange}
                   >
-                    {months.map((month, index) => (
-                      <option value={month} key={index}>
+                    {months.map((month, i) => (
+                      <option value={month} key={i}>
                         {month}
                       </option>
                     ))}
@@ -150,8 +152,8 @@ export default function RegisterForm() {
                     value={bYear}
                     onChange={handleRegisterChange}
                   >
-                    {years.map((year, index) => (
-                      <option value={year} key={index}>
+                    {years.map((year, i) => (
+                      <option value={year} key={i}>
                         {year}
                       </option>
                     ))}

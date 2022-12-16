@@ -8,24 +8,8 @@ export default function RegisterInput({ placeholder, bottom, ...props }) {
   const desktopView = useMediaQuery({
     query: "(min-width:850px)",
   });
-
   return (
-    <div className="input_wrap">
-      {meta.touched && meta.error && !bottom && (
-        <div
-          className={
-            desktopView ? "input_error input_error_desctop" : "input_error"
-          }
-          style={{ transform: "translateY(3px)" }}
-        >
-          {meta.touched && meta.error && <ErrorMessage name={field.name} />}
-          {meta.touched && meta.error && (
-            <div
-              className={desktopView ? "error-arrow-left" : "error_arrow_top"}
-            ></div>
-          )}
-        </div>
-      )}
+    <div className="input_wrap register_input_wrap">
       <input
         className={meta.touched && meta.error ? "input_error_border" : ""}
         type={field.type}
@@ -35,7 +19,7 @@ export default function RegisterInput({ placeholder, bottom, ...props }) {
         {...props}
       />
 
-      {meta.touched && meta.error && bottom && (
+      {meta.touched && meta.error && (
         <div
           className={
             desktopView ? "input_error input_error_desctop" : "input_error"
@@ -53,12 +37,7 @@ export default function RegisterInput({ placeholder, bottom, ...props }) {
         </div>
       )}
 
-      {meta.touched && meta.error && (
-        <i
-          className="error_icon"
-          style={{ top: `${!bottom && !desktopView ? "63%" : "15px"}` }}
-        ></i>
-      )}
+      {meta.touched && meta.error && <i className="error_icon"></i>}
     </div>
   );
 }
