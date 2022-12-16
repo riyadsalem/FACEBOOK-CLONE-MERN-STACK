@@ -2,24 +2,44 @@ import { Form, Formik } from "formik";
 import { useState } from "react";
 import RegisterInput from "../inputs/registerinput";
 
-const userInfos = {
-  first_name: "",
-  last_name: "",
-  email: "",
-  password: "",
-  bYear: "",
-  bMonth: "",
-  bDay: "",
-  gender: "",
-};
-
 export default function RegisterForm() {
+  const userInfos = {
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    bYear: new Date().getFullYear(),
+    bMonth: new Date().getMonth() + 1,
+    bDay: new Date().getDate(),
+    gender: "",
+  };
+
   const [user, setUser] = useState(userInfos);
 
   const handleRegisterChange = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
+
+  const {
+    first_name,
+    last_name,
+    email,
+    password,
+    bYear,
+    bMonth,
+    bDay,
+    gender,
+  } = user;
+  const yearTemp = new Date().getFullYear();
+
+  const getDays = () => {
+    return new Date(bYear, bMonth, 0).getDate(); // Days in Month
+  };
+
+  const years = Array.from(new Array(108), (val, index) => yearTemp - index);
+  const months = Array.from(new Array(12), (val, index) => 1 + index);
+  const days = Array.from(new Array(getDays()), (val, index) => 1 + index);
 
   return (
     <div className="blur">
@@ -54,7 +74,7 @@ export default function RegisterForm() {
                   onChange={handleRegisterChange}
                 />
                 <RegisterInput
-                  type="text"
+                  type="password"
                   name="password"
                   placeholder="New Password"
                   onChange={handleRegisterChange}
@@ -65,14 +85,38 @@ export default function RegisterForm() {
                   Date of birth <i className="info_icon"></i>
                 </div>
                 <div className="reg_grid">
-                  <select name="bDay">
-                    <option>15</option>
+                  <select
+                    name="bDay"
+                    value={bDay}
+                    onChange={handleRegisterChange}
+                  >
+                    {days.map((day, index) => (
+                      <option value={day} key={index}>
+                        {day}
+                      </option>
+                    ))}
                   </select>
-                  <select name="bMonth">
-                    <option>15</option>
+                  <select
+                    name="bMonth"
+                    value={bMonth}
+                    onChange={handleRegisterChange}
+                  >
+                    {months.map((month, index) => (
+                      <option value={month} key={index}>
+                        {month}
+                      </option>
+                    ))}
                   </select>
-                  <select name="bYear">
-                    <option>15</option>
+                  <select
+                    name="bYear"
+                    value={bYear}
+                    onChange={handleRegisterChange}
+                  >
+                    {years.map((year, index) => (
+                      <option value={year} key={index}>
+                        {year}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>

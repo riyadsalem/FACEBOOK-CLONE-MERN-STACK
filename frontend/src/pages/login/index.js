@@ -1,7 +1,5 @@
 import "./style.css";
-import LoginForm from "../../components/login/loginForm";
-import Footer from "../../components/login/Footer";
-import RegisterForm from "../../components/login/RegisterForm";
+import { LoginForm, RegisterForm, Footer } from "../../components/login";
 
 export default function Login() {
   return (
