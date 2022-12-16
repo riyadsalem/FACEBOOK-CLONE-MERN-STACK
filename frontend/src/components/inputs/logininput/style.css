@@ -67,11 +67,11 @@
   top: -3px;
 }
 
-.error-arrow-left {
+.error_arrow_left {
   border-left: 10px solid #b94a48;
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
   position: absolute;
   right: -10px;
-  top: 15px;
+  top: 13px;
 }
