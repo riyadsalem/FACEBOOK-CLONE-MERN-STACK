@@ -66,6 +66,8 @@ export default function RegisterForm() {
       .max(36, "Password can't be more than 36 characters"),
   });
 
+  const [dateError, setDateError] = useState("");
+
   return (
     <div className="blur">
       <div className="register">
@@ -87,6 +89,20 @@ export default function RegisterForm() {
             gender,
           }}
           validationSchema={registerValidation}
+          onSubmit={() => {
+            let current_date = new Date().getFullYear();
+            let picked_date = new Date(bYear, bMonth - 1, bDay).getFullYear();
+            if (current_date - picked_date < 14) {
+              setDateError(
+                "it looks like you(ve enetered the wrong info.Please make sure that you use your real date of birth."
+              );
+            } else if (current_date - picked_date > 70) {
+              setDateError(
+                "it looks like you(ve enetered the wrong info.Please make sure that you use your real date of birth."
+              );
+            } else {
+            }
+          }}
         >
           {(Formik) => (
             <Form className="register_form">
@@ -158,6 +174,7 @@ export default function RegisterForm() {
                       </option>
                     ))}
                   </select>
+                  {dateError && <div className="input_error">{dateError}</div>}
                 </div>
               </div>
               <div className="reg_col">
