@@ -106,9 +106,13 @@ export default function RegisterForm() {
                 "it looks like you(ve enetered the wrong info.Please make sure that you use your real date of birth."
               );
             } else if (gender === "") {
+              setDateError("");
               setGenderError(
                 "Please choose a gender. You can change who can see this later."
               );
+            } else {
+              setDateError("");
+              setGenderError("");
             }
           }}
         >

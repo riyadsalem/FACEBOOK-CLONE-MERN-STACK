@@ -218,6 +218,18 @@
 }
 /*-------Footer-----*/
 
+/*-------DOB and Gender errors-----*/
+.reg_grid .input_error {
+  width: 290px;
+  position: absolute;
+  top: 70px;
+}
+.input_error_select_larg {
+  left: -97%;
+  top: 15px !important;
+}
+/*-------DOB and Gender errors-----*/
+
 /*----Media queryis----*/
 @media (min-width: 539px) {
   .login_footer_wrap {
@@ -232,6 +244,9 @@
   .reg_grid select,
   .reg_grid label {
     width: 110px;
+  }
+  .reg_grid .input_error {
+    width: 350px;
   }
 }
 
