@@ -90,13 +90,15 @@ export default function RegisterForm() {
           }}
           validationSchema={registerValidation}
           onSubmit={() => {
-            let current_date = new Date().getFullYear();
-            let picked_date = new Date(bYear, bMonth - 1, bDay).getFullYear();
-            if (current_date - picked_date < 14) {
+            let current_date = new Date();
+            let picked_date = new Date(bYear, bMonth - 1, bDay);
+            let atleast14 = new Date(1970 + 14, 0, 1);
+            let noMoreThan70 = new Date(1970 + 70, 0, 1);
+            if (current_date - picked_date < atleast14) {
               setDateError(
                 "it looks like you(ve enetered the wrong info.Please make sure that you use your real date of birth."
               );
-            } else if (current_date - picked_date > 70) {
+            } else if (current_date - picked_date > noMoreThan70) {
               setDateError(
                 "it looks like you(ve enetered the wrong info.Please make sure that you use your real date of birth."
               );
