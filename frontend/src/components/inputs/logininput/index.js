@@ -21,7 +21,7 @@ export default function LoginInput({ placeholder, bottom, ...props }) {
           {meta.touched && meta.error && <ErrorMessage name={field.name} />}
           {meta.touched && meta.error && (
             <div
-              className={desktopView ? "error-arrow-left" : "error_arrow_top"}
+              className={desktopView ? "error_arrow_left" : "error_arrow_top"}
             ></div>
           )}
         </div>
@@ -46,7 +46,7 @@ export default function LoginInput({ placeholder, bottom, ...props }) {
           {meta.touched && meta.error && (
             <div
               className={
-                desktopView ? "error-arrow-left" : "error_arrow_bottom"
+                desktopView ? "error_arrow_left" : "error_arrow_bottom"
               }
             ></div>
           )}
