@@ -1,12 +1,14 @@
+import { Routes, Route } from "react-router-dom";
+import { Login, Home, Profile } from "./pages";
+
 const App = () => {
-  const getJson = async () => {
-    const res = fetch("http://localhost:8000/user");
-    console.log(res);
-  };
-  getJson();
   return (
     <>
-      <div>WELCOME FRONTEND</div>
+      <Routes>
+        <Route path="/login" element={<Login />} exact />
+        <Route path="/profile" element={<Profile />} exact />
+        <Route path="/" element={<Home />} exact />
+      </Routes>
     </>
   );
 };
