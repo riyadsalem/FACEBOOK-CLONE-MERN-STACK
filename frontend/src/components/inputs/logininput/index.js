@@ -9,6 +9,9 @@ export default function LoginInput({ placeholder, bottom, ...props }) {
     query: "(min-width:850px)",
   });
 
+  if (!desktopView && meta.touched && meta.error) {
+    document.querySelector(".login_footer ").style.marginTop = "140px";
+  }
   return (
     <div className="input_wrap">
       {meta.touched && meta.error && !bottom && (
