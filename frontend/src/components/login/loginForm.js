@@ -3,15 +3,18 @@ import { Link } from "react-router-dom";
 import LoginInput from "../../components/inputs/logininput";
 import { useState } from "react";
 import * as Yup from "yup";
+import DotLoader from "react-spinners/DotLoader";
+import axios from "axios";
 
 const loginInfos = {
   email: "",
   password: "",
 };
 
-export default function LoginForm() {
+export default function LoginForm({ setVisible }) {
   const [login, setLogin] = useState(loginInfos);
   const { email, password } = login;
+
   const handleLoginChange = (e) => {
     const { name, value } = e.target;
     setLogin({ ...login, [name]: value });
@@ -24,6 +27,25 @@ export default function LoginForm() {
       .max(100),
     password: Yup.string().required("password is required."),
   });
+
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const loginSubmit = async () => {
+    try {
+      const { data } = await axios.post("http://localhost:8000/login", {
+        email,
+        password,
+      });
+      setError("");
+      setSuccess(data.message);
+    } catch (error) {
+      setSuccess("");
+      setLoading(false);
+      setError(error.response.data.message);
+    }
+  };
 
   return (
     <div className="login_wrap">
@@ -39,6 +61,7 @@ export default function LoginForm() {
             enableReinitialize
             initialValues={{ email, password }}
             validationSchema={loginValidation}
+            onSubmit={loginSubmit}
           >
             {(formik) => (
               <Form>
@@ -65,8 +88,18 @@ export default function LoginForm() {
           <Link to="/forgot" className="forgot_password">
             Forget password?
           </Link>
+          <DotLoader color="#1876f2" loading={loading} size={30} />
+          {error && <div className="error_text">{error}</div>}
+
           <div className="sign_splitter"></div>
-          <button className="blue_btn open_signup">Create new account</button>
+          <button
+            className="blue_btn open_signup"
+            onClick={() => {
+              setVisible(true);
+            }}
+          >
+            Create new account
+          </button>
         </div>
         <Link to="/" className="sign_extra">
           <b>Create a Page</b> for a celebrity, brand or business.
