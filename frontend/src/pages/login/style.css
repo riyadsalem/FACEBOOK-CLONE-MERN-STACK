@@ -240,6 +240,7 @@
 /*-------Error and Success Message (Text)-----*/
 
 /*----Media queryis----*/
+
 @media (min-width: 539px) {
   .login_footer_wrap {
     max-width: 520px;
@@ -295,3 +296,5 @@
     max-width: 900px;
   }
 }
+
+/*----Media queryis----*/

@@ -8,7 +8,7 @@ import DotLoader from "react-spinners/DotLoader";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
-import { json, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterForm({ setVisible }) {
   const dispatch = useDispatch();
