@@ -119,6 +119,7 @@ export const LearnSomeIdeasFunction = (props) => {
   const buttonRef = useRef();
 
   useEffect(() => {
+    // document.getElementById("fName").focus();
     fNameRef.current.focus();
   });
 
@@ -165,15 +166,16 @@ export const LearnSomeIdeasFunction = (props) => {
           placeholder="First Name"
           name="fName"
           value={fName}
+          ref={fNameRef}
           onChange={handelData}
           onKeyDown={onFirstInputKey}
+          id="fName"
         />
         <input
           placeholder="Last Name"
           name="lName"
           value={lName}
           onChange={handelData}
-          ref={fNameRef}
           onKeyDown={onLastInputKey}
         />
         <button onClick={run} ref={buttonRef}>

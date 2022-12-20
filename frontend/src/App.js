@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import LearnSomeIdeas from "./LearnSomeIdeas";
+// import LearnSomeIdeas from "./LearnSomeIdeas";
 import { Login, Home, Profile } from "./pages";
 
 const App = () => {
@@ -9,7 +9,7 @@ const App = () => {
         <Route path="/login" element={<Login />} exact />
         <Route path="/profile" element={<Profile />} exact />
         <Route path="/" element={<Home />} exact />
-        <Route path="/LearnSomeIdeas" element={<LearnSomeIdeas />} exact />
+        {/** <Route path="/LearnSomeIdeas" element={<LearnSomeIdeas />} exact /> */}
       </Routes>
     </>
   );
