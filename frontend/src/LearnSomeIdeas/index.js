@@ -7,10 +7,11 @@ export default function LearnSomeIdeas() {
     <>
       {visible && (
         <>
-          <LearnSomeIdeasClass email="riyad.m.salem.com" />
-          <LearnSomeIdeasFunction email="riyad.m.salem.com" />
+          <LearnSomeIdeasClass email="riyad.m.salem.19988@gmail.com" />
+          <LearnSomeIdeasFunction email="riyad.m.salem.19988@gmail.com" />
         </>
       )}
+      <br />
       <button onClick={() => setVisible(!visible)}>Toggle</button>
     </>
   );
