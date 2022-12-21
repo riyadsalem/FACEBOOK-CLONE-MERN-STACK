@@ -18,6 +18,7 @@ import SearchMenu from "./SearchMenu";
 import { useRef, useState } from "react";
 import AllMenu from "./AllMenu";
 import useClickOutisde from "../../helpers/clickOutside";
+import UserMenu from "./UserMenu";
 export default function Header() {
   const store = useSelector((store) => store);
   const { user } = store.rootReducer;
@@ -76,11 +77,12 @@ export default function Header() {
         <div
           className="circle_icon hover1"
           onClick={() => setShowAllMenu((prev) => !prev)}
+          ref={allmenu}
         >
           <Menu />
           {showAllMenu && <AllMenu />}
         </div>
-        <div className="circle_icon hover1" ref={allmenu}>
+        <div className="circle_icon hover1">
           <Messenger />
         </div>
         <div className="circle_icon hover1">
@@ -89,6 +91,7 @@ export default function Header() {
         </div>
         <div className="circle_icon hover1">
           <ArrowDown />
+          <UserMenu user={user} />
         </div>
       </div>
     </header>
