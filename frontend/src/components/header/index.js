@@ -15,30 +15,32 @@ import {
 } from "../../svg";
 import { useSelector } from "react-redux";
 import SearchMenu from "./SearchMenu";
+import { useState } from "react";
 export default function Header() {
   const store = useSelector((store) => store);
   const { user } = store.rootReducer;
   const color = "#65676b";
+  const [showSearchMenu, setShowSearchMenu] = useState(false);
   return (
     <header>
       <div className="header_left">
-        <div style={{ display: "none" }}>
-          <Link to="/" className="header_logo">
-            <div className="circle ">
-              <Logo />
-            </div>
-          </Link>
-          <div className="search search1">
-            <Search color={color} />
-            <input
-              type="text"
-              placeholder="Search Facebook"
-              className="hid_input"
-            />
+        <Link to="/" className="header_logo">
+          <div className="circle ">
+            <Logo />
           </div>
+        </Link>
+        <div className="search search1" onClick={() => setShowSearchMenu(true)}>
+          <Search color={color} />
+          <input
+            type="text"
+            placeholder="Search Facebook"
+            className="hid_input"
+          />
         </div>
       </div>
-      <SearchMenu color={color} />
+      {showSearchMenu && (
+        <SearchMenu color={color} setShowSearchMenu={setShowSearchMenu} />
+      )}
       <div className="header_middle">
         <Link to="/" className="middle_icon active">
           <HomeActive color={color} />
