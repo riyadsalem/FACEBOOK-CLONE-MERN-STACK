@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import DisplayAccessibility from "./DisplayAccessibility";
+import HelpSupport from "./HelpSupport";
 import SettingPrivacy from "./SettingPrivacy";
 
 export default function UserMenu({ user }) {
-  const [visible, setVisible] = useState(1);
+  const [visible, setVisible] = useState(0);
   return (
     <div className="mmenu">
       {visible === 0 && (
@@ -12,8 +14,7 @@ export default function UserMenu({ user }) {
             <img src={user?.picture} alt="" />
             <div className="mmenu_col">
               <span>
-                {user?.first_name}
-                {user?.last_name}
+                {user?.first_name} {user?.last_name}
               </span>
               <span>See your profile</span>
             </div>
@@ -24,12 +25,12 @@ export default function UserMenu({ user }) {
               <i className="report_filled_icon"></i>
             </div>
             <div className="mmenu_col">
-              <div className="mmenu_span1">Give feedback</div>
-              <div className="mmenu_span2">Help us improve facebook</div>
+              <span className="mmenu_span1">Give feedback</span>
+              <span className="mmenu_span2">Help us improve facebook</span>
             </div>
           </div>
           <div className="mmenu_splitter"></div>
-          <div className="mmenu_item hover3">
+          <div className="mmenu_item hover3" onClick={() => setVisible(1)}>
             <div className="small_circle">
               <i className="settings_filled_icon"></i>
             </div>
@@ -39,7 +40,7 @@ export default function UserMenu({ user }) {
             </div>
           </div>
 
-          <div className="mmenu_item hover3">
+          <div className="mmenu_item hover3" onClick={() => setVisible(2)}>
             <div className="small_circle">
               <i className="help_filled_icon"></i>
             </div>
@@ -49,7 +50,7 @@ export default function UserMenu({ user }) {
             </div>
           </div>
 
-          <div className="mmenu_item hover3">
+          <div className="mmenu_item hover3" onClick={() => setVisible(3)}>
             <div className="small_circle">
               <i className="dark_filled_icon"></i>
             </div>
@@ -67,7 +68,9 @@ export default function UserMenu({ user }) {
           </div>
         </div>
       )}
-      {visible === 1 && <SettingPrivacy />}
+      {visible === 1 && <SettingPrivacy setVisible={setVisible} />}
+      {visible === 2 && <HelpSupport setVisible={setVisible} />}
+      {visible === 3 && <DisplayAccessibility setVisible={setVisible} />}
     </div>
   );
 }
