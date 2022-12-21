@@ -4,7 +4,7 @@ export default function useClickOutisde(ref, fun) {
   useEffect(() => {
     const listener = (e) => {
       if (!ref.current || ref.current.contains(e.target)) {
-        return;
+        return; // funn() >> Not
       }
       fun();
     };
