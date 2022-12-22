@@ -43,6 +43,7 @@ export default function LoginForm({ setVisible }) {
 
       dispatch({ type: "LOGIN", payload: data });
       Cookies.set("user", JSON.stringify(data));
+      navigate("/");
     } catch (error) {
       setLoading(false);
       setError(error.response.data.message);
