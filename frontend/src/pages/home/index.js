@@ -1,19 +1,23 @@
-import { useRef, useState } from "react";
+import "./style.css";
 import Header from "../../components/header";
-import useClickOutisde from "../../helpers/clickOutside";
+import LeftHome from "../../components/home/left";
+import { useSelector } from "react-redux";
+import RightHome from "../../components/home/right";
+import Stores from "../../components/home/stories";
+import CreatePost from "../../components/createPost";
 
 export default function Home() {
-  const [visible, setVisible] = useState(true);
-  const el = useRef(null);
-
-  useClickOutisde(el, () => {
-    setVisible(false);
-  });
-
+  const store = useSelector((store) => store);
+  const { user } = store.rootReducer;
   return (
-    <div>
+    <div className="home">
       <Header />
-      {/*{visible && <div className="card" ref={el}></div>} */}
+      <LeftHome user={user} />
+      <div className="home_middle">
+        <Stores />
+        <CreatePost user={user} />
+      </div>
+      <RightHome user={user} />
     </div>
   );
 }
