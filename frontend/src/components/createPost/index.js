@@ -16,11 +16,11 @@ export default function CreatePost({ user }) {
         </div>
 
         <div className="createPost_icon hover1">
-          <Photo color="#f3425f" /> Photo/Video
+          <Photo color="#4bbf67" /> Photo/Video
         </div>
 
         <div className="createPost_icon hover1">
-          <Feeling color="#f3425f" /> Felling/Activity
+          <Feeling color="#f7b928" /> Felling/Activity
         </div>
       </div>
     </div>
