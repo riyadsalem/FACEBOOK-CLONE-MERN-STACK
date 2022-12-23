@@ -1,5 +1,7 @@
-import { Plus } from "../../../svg";
+import { ArrowRight, Plus } from "../../../svg";
 import "./style.css";
+import { stories } from "../../../data/home";
+import Story from "./Story";
 export default function Stores() {
   return (
     <div className="stories">
@@ -13,6 +15,12 @@ export default function Stores() {
           <Plus color="#fff" />
         </div>
         <div className="story_create_text">Create Story</div>
+      </div>
+      {stories.map((story, i) => (
+        <Story story={story} key={i} />
+      ))}
+      <div className="white_circle">
+        <ArrowRight color="#65676b" />
       </div>
     </div>
   );
