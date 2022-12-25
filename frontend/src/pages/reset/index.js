@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import { Form, Formik } from "formik";
 import LoginInput from "../../components/inputs/logininput";
 import { useState } from "react";
+import Footer from "../../components/login/Footer";
 
 export default function Reset() {
   const dispatch = useDispatch();
@@ -69,6 +70,8 @@ export default function Reset() {
           </Formik>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }

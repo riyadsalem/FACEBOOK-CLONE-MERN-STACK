@@ -2,6 +2,9 @@
   background: var(--bg-secondary);
   height: 100vh;
   color: var(--color-primary);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .reset_header {
   background: var(--bg-primary);
