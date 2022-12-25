@@ -15,7 +15,8 @@
 /*-----Responsive-----*/
 @media (max-width: 1175px) {
   .stories,
-  .createPost {
+  .createPost,
+  .send_verification {
     width: 84% !important;
   }
   .home_middle {
@@ -60,12 +61,14 @@
     width: 20px;
   }
   .stories,
-  .createPost {
+  .createPost,
+  .send_verification {
     width: 100% !important;
   }
 }
 @media (max-width: 960px) {
-  .createPost {
+  .createPost,
+  .send_verification {
     width: 93% !important;
   }
   .stories {
@@ -92,7 +95,8 @@
   .right_home {
     display: none;
   }
-  .createPost {
+  .createPost,
+  .send_verification {
     width: 110% !important;
   }
   .stories {
@@ -136,7 +140,8 @@
     margin-left: 0;
   }
   .stories,
-  .createPost {
+  .createPost,
+  .send_verification {
     width: 100% !important;
   }
 

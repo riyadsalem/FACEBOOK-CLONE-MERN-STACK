@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import RightHome from "../../components/home/right";
 import Stores from "../../components/home/stories";
 import CreatePost from "../../components/createPost";
+import SendVerificatio from "../../components/home/sendVerification";
 
 export default function Home() {
   const store = useSelector((store) => store);
@@ -15,6 +16,7 @@ export default function Home() {
       <LeftHome user={user} />
       <div className="home_middle">
         <Stores />
+        <SendVerificatio />
         <CreatePost user={user} />
       </div>
       <RightHome user={user} />
