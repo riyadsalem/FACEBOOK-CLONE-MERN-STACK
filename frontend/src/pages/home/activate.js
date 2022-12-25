@@ -1,20 +1,56 @@
-import "./style.css";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import CreatePost from "../../components/createPost";
 import Header from "../../components/header";
 import LeftHome from "../../components/home/left";
-import { useSelector } from "react-redux";
 import RightHome from "../../components/home/right";
-import Stores from "../../components/home/stories";
-import CreatePost from "../../components/createPost";
-import { useState } from "react";
+import Stories from "../../components/home/stories";
 import ActivateForm from "../../components/home/ActivateForm";
-
+import "./style.css";
+import axios from "axios";
+import Cookies from "js-cookie";
 export default function Activate() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const store = useSelector((store) => store);
   const { user } = store.rootReducer;
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const { token } = useParams();
 
+  useEffect(() => {
+    activateAccount();
+  }, []);
+  const activateAccount = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.post(
+        `http://localhost:8000/activate`,
+        { token },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      setSuccess(data.message);
+      Cookies.set("user", JSON.stringify({ ...user, verified: true }));
+      dispatch({
+        type: "VERIFY",
+        payload: true,
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    } catch (error) {
+      setError(error.response.data.message);
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    }
+  };
   return (
     <div className="home">
       {success && (
@@ -28,15 +64,15 @@ export default function Activate() {
       {error && (
         <ActivateForm
           type="error"
-          header="Account verification succeded."
+          header="Account verification failed."
           text={error}
           loading={loading}
         />
-      )}{" "}
+      )}
       <Header />
       <LeftHome user={user} />
       <div className="home_middle">
-        <Stores />
+        <Stories />
         <CreatePost user={user} />
       </div>
       <RightHome user={user} />

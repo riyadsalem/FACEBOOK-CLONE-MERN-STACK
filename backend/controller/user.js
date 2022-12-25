@@ -54,7 +54,7 @@ exports.register = async (req, res) => {
 
     const emailVerificationToken = generateToken(
       { id: user._id.toString() },
-      "30m"
+      "50m"
     );
 
     const url = `${process.env.BASE_URL}/activate/${emailVerificationToken}`;
