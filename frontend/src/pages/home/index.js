@@ -16,7 +16,7 @@ export default function Home() {
       <LeftHome user={user} />
       <div className="home_middle">
         <Stores />
-        <SendVerificatio />
+        {!user.verified && <SendVerificatio user={user} />}
         <CreatePost user={user} />
       </div>
       <RightHome user={user} />
