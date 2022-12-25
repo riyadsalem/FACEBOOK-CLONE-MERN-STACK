@@ -10,6 +10,7 @@ import ActivateForm from "../../components/home/ActivateForm";
 import "./style.css";
 import axios from "axios";
 import Cookies from "js-cookie";
+
 export default function Activate() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,7 +20,6 @@ export default function Activate() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const { token } = useParams();
-
   useEffect(() => {
     activateAccount();
   }, []);
