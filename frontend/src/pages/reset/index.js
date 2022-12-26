@@ -10,16 +10,17 @@ import { Footer } from "../../components/login";
 import ChangePassword from "./ChangePassword";
 
 export default function Reset() {
+  const { user } = useSelector((store) => ({ ...store.rootReducer }));
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((store) => ({ ...store.rootReducer }));
+  const [visible, setVisible] = useState(0);
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [password, setPassword] = useState("");
   const [conf_password, setConf_password] = useState("");
   const [error, setError] = useState("");
-  const [visible, setVisible] = useState(3);
-
+  const [userInfos, setUserInfos] = useState("");
   const logout = () => {
     Cookies.set("user", "");
     dispatch({ type: "LOGOUT" });
@@ -46,9 +47,17 @@ export default function Reset() {
       </div>
       <div className="reset_wrap">
         {visible === 0 && (
-          <SearchAccount email={email} setEmail={setEmail} error={error} />
+          <SearchAccount
+            email={email}
+            setEmail={setEmail}
+            error={error}
+            setError={setError}
+            setLoading={setLoading}
+            setUserInfos={setUserInfos}
+            setVisible={setVisible}
+          />
         )}
-        {visible === 1 && <SendEmail user={user} />}
+        {visible === 1 && userInfos && <SendEmail userInfos={userInfos} />}
         {visible === 2 && (
           <CodeVerification code={code} setCode={setCode} error={error} />
         )}
