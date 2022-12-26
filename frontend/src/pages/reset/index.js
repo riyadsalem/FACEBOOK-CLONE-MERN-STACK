@@ -7,6 +7,7 @@ import SearchAccount from "./SearchAccount";
 import SendEmail from "./SendEmail";
 import CodeVerification from "./CodeVerification";
 import { Footer } from "../../components/login";
+import ChangePassword from "./ChangePassword";
 
 export default function Reset() {
   const dispatch = useDispatch();
@@ -14,8 +15,10 @@ export default function Reset() {
   const { user } = useSelector((store) => ({ ...store.rootReducer }));
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
+  const [password, setPassword] = useState("");
+  const [conf_password, setConf_password] = useState("");
   const [error, setError] = useState("");
-  const [visible, setVisible] = useState(2);
+  const [visible, setVisible] = useState(0);
 
   const logout = () => {
     Cookies.set("user", "");
@@ -48,6 +51,15 @@ export default function Reset() {
         {visible === 1 && <SendEmail user={user} />}
         {visible === 2 && (
           <CodeVerification code={code} setCode={setCode} error={error} />
+        )}
+        {visible === 3 && (
+          <ChangePassword
+            password={password}
+            setPassword={setPassword}
+            conf_password={conf_password}
+            setConf_password={setConf_password}
+            error={error}
+          />
         )}
       </div>
       <Footer />

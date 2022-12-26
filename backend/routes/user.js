@@ -4,6 +4,7 @@ const {
   activateAccount,
   login,
   sendVerification,
+  findUser,
 } = require("../controller/user");
 const { authUser } = require("../middlwares/auth");
 const router = express.Router();
