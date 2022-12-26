@@ -1,15 +1,19 @@
 import { Form, Formik } from "formik";
+import { Link, useNavigate } from "react-router-dom";
 import LoginInput from "../../components/inputs/logininput";
-import { Link } from "react-router-dom";
 import * as Yup from "yup";
-
+import axios from "axios";
 export default function ChangePassword({
   password,
   setPassword,
   conf_password,
   setConf_password,
   error,
+  setLoading,
+  userInfos,
+  setError,
 }) {
+  const navigate = useNavigate();
   const validatePassword = Yup.object({
     password: Yup.string()
       .required(
@@ -22,31 +26,48 @@ export default function ChangePassword({
       .required("Confirm your password.")
       .oneOf([Yup.ref("password")], "Passwords must match."),
   });
+  const { email } = userInfos;
+  const changePassword = async () => {
+    try {
+      setLoading(true);
+      await axios.post(`http://localhost:8000/changePassword`, {
+        email,
+        password,
+      });
+      setError("");
+      navigate("/");
+    } catch (error) {
+      setLoading(false);
+      setError(error.response.data.message);
+    }
+  };
   return (
     <div className="reset_form" style={{ height: "310px" }}>
-      <div className="reset_form_header">Change Passwrod</div>
+      <div className="reset_form_header">Change Password</div>
       <div className="reset_form_text">Pick a strong password</div>
       <Formik
-        validationSchema={validatePassword}
         enableReinitialize
-        initialValues={{ password, conf_password }}
+        initialValues={{
+          password,
+          conf_password,
+        }}
+        validationSchema={validatePassword}
+        onSubmit={() => {
+          changePassword();
+        }}
       >
         {(formik) => (
           <Form>
             <LoginInput
               type="password"
               name="password"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="New password"
             />
             <LoginInput
               type="password"
               name="conf_password"
-              onChange={(e) => {
-                setConf_password(e.target.value);
-              }}
+              onChange={(e) => setConf_password(e.target.value)}
               placeholder="Confirm new password"
               bottom
             />
@@ -56,7 +77,7 @@ export default function ChangePassword({
                 Cancel
               </Link>
               <button type="submit" className="blue_btn">
-                Search
+                Continue
               </button>
             </div>
           </Form>
