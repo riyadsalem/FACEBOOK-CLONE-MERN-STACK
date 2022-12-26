@@ -22,7 +22,6 @@ export default function SearchAccount({
   const handleSearch = async () => {
     try {
       setLoading(true);
-
       const { data } = await axios.post(`http://localhost:8000/findUser`, {
         email,
       });
