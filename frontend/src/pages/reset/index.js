@@ -57,7 +57,17 @@ export default function Reset() {
             setVisible={setVisible}
           />
         )}
-        {visible === 1 && userInfos && <SendEmail userInfos={userInfos} />}
+        {visible === 1 && userInfos && (
+          <SendEmail
+            email={email}
+            userInfos={userInfos}
+            error={error}
+            setError={setError}
+            setLoading={setLoading}
+            setUserInfos={setUserInfos}
+            setVisible={setVisible}
+          />
+        )}
         {visible === 2 && (
           <CodeVerification code={code} setCode={setCode} error={error} />
         )}
