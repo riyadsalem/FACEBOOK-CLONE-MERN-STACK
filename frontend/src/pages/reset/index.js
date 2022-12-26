@@ -69,7 +69,15 @@ export default function Reset() {
           />
         )}
         {visible === 2 && (
-          <CodeVerification code={code} setCode={setCode} error={error} />
+          <CodeVerification
+            code={code}
+            setCode={setCode}
+            error={error}
+            setError={setError}
+            setLoading={setLoading}
+            setVisible={setVisible}
+            userInfos={userInfos}
+          />
         )}
         {visible === 3 && (
           <ChangePassword
