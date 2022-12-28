@@ -8,7 +8,17 @@ export default function ImagePreview({
   setImages,
 }) {
   const imageInputRef = useRef(null);
-  const handleImages = () => {};
+  const handleImages = (e) => {
+    let files = Array.from(e.target.files);
+    files.forEach((img) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(img);
+      reader.onload = (readerEvent) => {
+        setImages((images) => [...images, readerEvent.target.result]);
+      };
+    });
+  };
+  console.log(images);
   return (
     <div className="overflow_a">
       <EmojiPickerBackgrounds text={text} setText={setText} user={user} type2 />
@@ -27,7 +37,12 @@ export default function ImagePreview({
             <div className="small_white_circle">
               <i className="exit_icon"></i>
             </div>
-            <div className="add_col">
+            <div
+              className="add_col"
+              onClick={() => {
+                imageInputRef.current.click();
+              }}
+            >
               <div className="add_circle">
                 <i className="addPhoto_icon"></i>
               </div>
