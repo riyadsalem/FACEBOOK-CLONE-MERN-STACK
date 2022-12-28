@@ -45,7 +45,7 @@
 }
 .box_profile_name {
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 4px;
 }
 .box_privacy {
@@ -88,4 +88,26 @@
   background: transparent;
   overflow-y: visible;
   position: absolute;
+}
+.post_emojis_wrap {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 10px 15px;
+}
+.post_emojis_wrap img {
+  width: 39px;
+  cursor: pointer;
+}
+.post_emojis_wrap i:hover {
+  filter: invert(80%);
+}
+.comment_emoji_picker {
+  position: absolute;
+  right: 0;
+  bottom: 2.5rem;
+}
+.rlmove {
+  right: -7rem;
 }
