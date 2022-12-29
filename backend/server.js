@@ -3,7 +3,7 @@ const cors = require("cors");
 const fs = require("fs");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
-
+const fileUpload = require("express-fileupload");
 const app = express();
 dotenv.config({ path: "./vars/.env" });
 
@@ -13,6 +13,11 @@ const options = {
 };
 app.use(cors(options));
 app.use(express.json());
+app.use(
+  fileUpload({
+    useTempFiles: true,
+  })
+);
 
 // ROUTES
 fs.readdirSync("./routes").map((route) => {
