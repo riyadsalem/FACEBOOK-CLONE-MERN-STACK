@@ -23,7 +23,7 @@ exports.uploadImages = async (req, res) => {
   }
 };
 
-const uploadToCloudinary = async (file, path) => {
+const uploadToCloudinary = (file, path) => {
   return new Promise((resolve) => {
     cloudinary.v2.uploader.upload(
       file.tempFilePath,
