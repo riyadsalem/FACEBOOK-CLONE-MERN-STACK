@@ -4,10 +4,15 @@ import EmojiPickerBackgrounds from "./EmojiPickerBackgrounds";
 import AddToYourPost from "./AddToYourPost";
 import ImagePreview from "./imagePreview";
 import useClickOutisde from "../../helpers/clickOutside";
+import PulseLoader from "react-spinners/PulseLoader";
+import { createPost } from "../../functions/post";
+import PostError from "./PostError";
 
 export default function CreatePostPopup({ user, setVisible }) {
   const [text, setText] = useState("");
   const [showPrev, setShowPrev] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [images, setImages] = useState([]);
   const [background, setBackground] = useState("");
   const popup = useRef(null);
@@ -15,9 +20,31 @@ export default function CreatePostPopup({ user, setVisible }) {
     setVisible(false);
   });
 
+  const postSubmit = async () => {
+    if (background) {
+      setLoading(true);
+      const response = await createPost(
+        null,
+        background,
+        text,
+        null,
+        user.id,
+        user.token
+      );
+      setLoading(false);
+      if (response.status === "ok") {
+        setBackground("");
+        setText("");
+        setVisible(false);
+      } else {
+        setError(response);
+      }
+    }
+  };
   return (
     <div className="blur">
       <div className="postBox" ref={popup}>
+        {error && <PostError error={error} setError={setError} />}
         <div className="box_header">
           <div className="small_circle" onClick={() => setVisible(false)}>
             <i className="exit_icon"></i>
@@ -56,7 +83,13 @@ export default function CreatePostPopup({ user, setVisible }) {
           />
         )}
         <AddToYourPost setShowPrev={setShowPrev} />
-        <button className="post_submit">Post</button>
+        <button
+          className="post_submit"
+          onClick={() => postSubmit()}
+          disabled={loading}
+        >
+          {loading ? <PulseLoader color="#fff" size={5} /> : "Post"}
+        </button>
       </div>
     </div>
   );

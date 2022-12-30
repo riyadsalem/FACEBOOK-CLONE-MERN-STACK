@@ -34,12 +34,12 @@ export default function EmojiPickerBackgrounds({
     postBackgrounds.push(`../../../images/postBackgrounds/${i}.jpg`);
   }
 
-  const backgroundHandler = (i) => {
+  const backgroundHanlder = (i) => {
     bgRef.current.style.backgroundImage = `url(${postBackgrounds[i]})`;
     setBackground(postBackgrounds[i]);
     bgRef.current.classList.add("bgHandler");
   };
-  const removeBackground = () => {
+  const removeBackground = (i) => {
     bgRef.current.style.backgroundImage = "";
     setBackground("");
     bgRef.current.classList.remove("bgHandler");
@@ -89,7 +89,7 @@ export default function EmojiPickerBackgrounds({
                 src={bg}
                 key={i}
                 alt=""
-                onClick={() => backgroundHandler(i)}
+                onClick={() => backgroundHanlder(i)}
               />
             ))}
           </div>
