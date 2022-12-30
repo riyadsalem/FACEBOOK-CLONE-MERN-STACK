@@ -6,6 +6,6 @@ const imageUpload = require("../middlwares/imageUpload");
 
 const { uploadImages } = require("../controller/upload");
 
-router.post("/uploadImages", imageUpload, uploadImages);
+router.post("/uploadImages", authUser, imageUpload, uploadImages);
 
 module.exports = router;

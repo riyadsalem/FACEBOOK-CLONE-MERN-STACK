@@ -7,6 +7,8 @@ import useClickOutisde from "../../helpers/clickOutside";
 import PulseLoader from "react-spinners/PulseLoader";
 import { createPost } from "../../functions/post";
 import PostError from "./PostError";
+import dataURItoBlob from "../../helpers/dataURItoBlob";
+import { uploadImages } from "../../functions/uploadImages";
 
 export default function CreatePostPopup({ user, setVisible }) {
   const [text, setText] = useState("");
@@ -39,6 +41,55 @@ export default function CreatePostPopup({ user, setVisible }) {
       } else {
         setError(response);
       }
+    } else if (images && images.length) {
+      setLoading(true);
+      const postImages = images.map((img) => {
+        return dataURItoBlob(img);
+      });
+      const path = `${user.username}/post_images`;
+      let formData = new FormData();
+      formData.append("path", path);
+      postImages.forEach((image) => {
+        formData.append("file", image);
+      });
+      const response = await uploadImages(formData, user.token);
+
+      const res = await createPost(
+        null,
+        null,
+        text,
+        response,
+        user.id,
+        user.token
+      );
+      setLoading(false);
+      if (res.status === "ok") {
+        setText("");
+        setImages("");
+        setVisible(false);
+      } else {
+        setError(res);
+      }
+    } else if (text) {
+      setLoading(true);
+      const response = await createPost(
+        null,
+        null,
+        text,
+        null,
+        user.id,
+        user.token
+      );
+      setLoading(false);
+      if (response.status === "ok") {
+        setBackground("");
+        setText("");
+        setVisible(false);
+      } else {
+        setError(response);
+      }
+    } else {
+      console.log("nothing");
     }
   };
   return (
@@ -80,6 +131,7 @@ export default function CreatePostPopup({ user, setVisible }) {
             images={images}
             setImages={setImages}
             setShowPrev={setShowPrev}
+            setError={setError}
           />
         )}
         <AddToYourPost setShowPrev={setShowPrev} />
