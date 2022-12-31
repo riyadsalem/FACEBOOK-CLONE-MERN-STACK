@@ -7,7 +7,7 @@ import Stores from "../../components/home/stories";
 import CreatePost from "../../components/createPost";
 import SendVerificatio from "../../components/home/sendVerification";
 
-export default function Home({ setVisible }) {
+export default function Home({ setVisible, posts }) {
   const store = useSelector((store) => store);
   const { user } = store.rootReducer;
   return (
@@ -18,6 +18,9 @@ export default function Home({ setVisible }) {
         <Stores />
         {!user.verified && <SendVerificatio user={user} />}
         <CreatePost user={user} setVisible={setVisible} />
+        {posts.map((post, i) => {
+          console.log(post);
+        })}
       </div>
       <RightHome user={user} />
     </div>

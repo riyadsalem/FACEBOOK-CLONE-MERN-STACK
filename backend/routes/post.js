@@ -3,8 +3,9 @@ const router = express.Router();
 
 const { authUser } = require("../middlwares/auth");
 
-const { createPost } = require("../controller/post");
+const { createPost, getAllPosts } = require("../controller/post");
 
 router.post("/createPost", authUser, createPost);
+router.get("/getAllPosts", authUser, getAllPosts);
 
 module.exports = router;
