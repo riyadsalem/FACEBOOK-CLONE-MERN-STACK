@@ -44,6 +44,7 @@ export default function ImagePreview({
         <input
           type="file"
           multiple
+          accept="image/jpeg,image/png,image/webp,image/gif"
           hidden
           ref={imageInputRef}
           onChange={handleImages}
