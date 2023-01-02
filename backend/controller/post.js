@@ -9,3 +9,14 @@ exports.createPost = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+exports.getAllPosts = async (req, res) => {
+  try {
+    const post = await Post.find()
+      .populate("user", "first_name last_name picture username cover")
+      .sort({ createdAt: -1 });
+    res.json(post);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
