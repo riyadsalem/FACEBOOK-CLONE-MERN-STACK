@@ -1,5 +1,2 @@
 # FACEBOOK-CLONE-MERN-STACK
 
-
-#ReactJs
-#nodeJs
