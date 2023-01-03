@@ -42,7 +42,7 @@ export default function Post({ post, user }) {
         </Link>
         <div
           className="post_header_right hover1"
-          onClick={() => setShowMenu((prev) => !prev)}
+          onMouseDown={() => setShowMenu((prev) => !prev)}
         >
           <Dots color="#828387" />
         </div>
