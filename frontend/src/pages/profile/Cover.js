@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import useClickOutisde from "../../helpers/clickOutside";
 
 export default function Cover({ cover }) {
-  const [showCoverMneu, setShowCoverMenu] = useState(true);
+  const [showCoverMneu, setShowCoverMenu] = useState(false);
   const menuRef = useRef(null);
   useClickOutisde(menuRef, () => setShowCoverMenu(false));
   return (
