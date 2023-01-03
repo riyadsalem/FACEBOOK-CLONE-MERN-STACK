@@ -1,8 +1,11 @@
+import "./style.css";
 import axios from "axios";
 import { useEffect, useReducer } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import { profileReducer } from "../../functions/reducers";
+import Header from "../../components/header";
+import Cover from "./Cover";
 
 export default function Profile() {
   const { username } = useParams();
@@ -47,11 +50,15 @@ export default function Profile() {
       });
     }
   };
-  console.log(profile);
   return (
     <>
-      <div>
-        <h1>profile page</h1>
+      <div className="profile">
+        <Header page="profile" />
+        <div className="profile_top">
+          <div className="profile_container">
+            <Cover cover={profile.cover} />
+          </div>
+        </div>
       </div>
     </>
   );
