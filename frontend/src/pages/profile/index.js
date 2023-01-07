@@ -8,6 +8,7 @@ import Header from "../../components/header";
 import Cover from "./Cover";
 import ProfielPictureInfos from "./ProfielPictureInfos";
 import ProfileMenu from "./ProfileMenu";
+import PplYouMayKnow from "./PplYouMayKnow";
 
 export default function Profile() {
   const { username } = useParams();
@@ -61,6 +62,13 @@ export default function Profile() {
             <Cover cover={profile.cover} />
             <ProfielPictureInfos profile={profile} />
             <ProfileMenu />
+          </div>
+        </div>
+        <div className="profile_bottom">
+          <div className="profile_container">
+            <div className="bottom_container">
+              <PplYouMayKnow />
+            </div>
           </div>
         </div>
       </div>
