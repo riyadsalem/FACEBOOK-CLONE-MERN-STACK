@@ -9,8 +9,10 @@ import Cover from "./Cover";
 import ProfielPictureInfos from "./ProfielPictureInfos";
 import ProfileMenu from "./ProfileMenu";
 import PplYouMayKnow from "./PplYouMayKnow";
+import CreatePost from "../../components/createPost";
+import GridPosts from "./GridPosts";
 
-export default function Profile() {
+export default function Profile({ setVisible }) {
   const { username } = useParams();
   const { user } = useSelector((store) => ({ ...store.rootReducer }));
   const userName = username === undefined ? user.username : username;
@@ -68,6 +70,13 @@ export default function Profile() {
           <div className="profile_container">
             <div className="bottom_container">
               <PplYouMayKnow />
+              <div className="profile_grid">
+                <div className="profile_left"></div>
+                <div className="profile_right">
+                  <CreatePost user={user} profile setVisible={setVisible} />
+                  <GridPosts />
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -8,7 +8,7 @@ export default function Cover({ cover }) {
   return (
     <div className="profile_cover" ref={menuRef}>
       {cover && <img src={cover} alt="" />}
-      <div className="update_cover_wrapper">
+      <div className="udpate_cover_wrapper">
         <div
           className="open_cover_update"
           onClick={() => setShowCoverMenu((prev) => !prev)}
