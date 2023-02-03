@@ -11,6 +11,7 @@ import ProfileMenu from "./ProfileMenu";
 import PplYouMayKnow from "./PplYouMayKnow";
 import CreatePost from "../../components/createPost";
 import GridPosts from "./GridPosts";
+import Post from "../../components/post";
 
 export default function Profile({ setVisible }) {
   const { username } = useParams();
@@ -21,11 +22,14 @@ export default function Profile({ setVisible }) {
     profile: {},
     error: "",
   });
+
   const navigate = useNavigate();
 
   useEffect(() => {
     getProfile();
   }, [userName]);
+
+  var visitor = userName === user.username ? false : true;
 
   const getProfile = async () => {
     try {
@@ -61,8 +65,8 @@ export default function Profile({ setVisible }) {
         <Header page="profile" />
         <div className="profile_top">
           <div className="profile_container">
-            <Cover cover={profile.cover} />
-            <ProfielPictureInfos profile={profile} />
+            <Cover cover={profile.cover} visitor={visitor} />
+            <ProfielPictureInfos profile={profile} visitor={visitor} />
             <ProfileMenu />
           </div>
         </div>
@@ -73,8 +77,19 @@ export default function Profile({ setVisible }) {
               <div className="profile_grid">
                 <div className="profile_left"></div>
                 <div className="profile_right">
-                  <CreatePost user={user} profile setVisible={setVisible} />
+                  {!visitor && (
+                    <CreatePost user={user} profile setVisible={setVisible} />
+                  )}
                   <GridPosts />
+                  <div className="posts">
+                    {profile.posts && profile.posts.length ? (
+                      profile.posts.map((post) => (
+                        <Post post={post} user={user} key={post._id} />
+                      ))
+                    ) : (
+                      <div className="no_posts">No posts available</div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
