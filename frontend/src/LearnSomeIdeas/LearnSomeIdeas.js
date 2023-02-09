@@ -1,6 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import Button from "./Button";
 
 export class LearnSomeIdeasClass extends React.Component {
+  // export class LearnSomeIdeasClass extends React.PureComponent {
+
+  /*
   constructor(props) {
     super(props);
     this.state = {
@@ -8,6 +12,7 @@ export class LearnSomeIdeasClass extends React.Component {
       password: "",
     };
   }
+ */
 
   /*
   componentDidMount() {
@@ -30,17 +35,28 @@ export class LearnSomeIdeasClass extends React.Component {
     console.log("Class Component will Unmount");
   }
   */
+  /*
   handelEmail = (e) => {
     this.setState({ email: e.target.value });
   };
   handePassword = (e) => {
     this.setState({ password: e.target.value });
   };
+  */
+  ///////////////////////////////////// useCallback /////////////////////////////////////
+  state = {
+    count: 0,
+  };
+
+  increment = () => {
+    this.setState({ count: this.state.count + 1 });
+  };
 
   render() {
     return (
       <>
         <div>
+          {/** 
           <h2>Class Example (useEffect)</h2>
           <input
             value={this.state.email}
@@ -56,6 +72,10 @@ export class LearnSomeIdeasClass extends React.Component {
           <h2>Class Example (useRef)</h2>
           <input />
           <button>RUN</button>
+          */}
+          <h2>Class Example (useCallback)</h2>
+          count : {this.state.count}
+          <Button onClick={this.increment}>Increment</Button>
         </div>
         <br />
         <hr />
@@ -67,9 +87,10 @@ export class LearnSomeIdeasClass extends React.Component {
 export const LearnSomeIdeasFunction = (props) => {
   ///////////////////////////////////// useEffect /////////////////////////////////////
 
+  /*
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  */
   /*
   // Did Mount
   useEffect(() => {
@@ -100,6 +121,7 @@ export const LearnSomeIdeasFunction = (props) => {
   }, [password]);
   */
 
+  /*
   const handelEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -107,9 +129,10 @@ export const LearnSomeIdeasFunction = (props) => {
   const handePassword = (e) => {
     setPassword(e.target.value);
   };
-
+ */
   ///////////////////////////////////// useRef /////////////////////////////////////
 
+  /*
   const dataInfo = {
     fName: "",
     lName: "",
@@ -145,10 +168,22 @@ export const LearnSomeIdeasFunction = (props) => {
       buttonRef.current.focus();
     }
   };
+ */
+
+  ///////////////////////////////////// useCallback /////////////////////////////////////
+
+  const [count, setCount] = useState(0);
+
+  function increment() {
+    return setCount((count) => count + 1);
+  }
+
+  const incrementCallback = useCallback(increment, []);
 
   return (
     <>
       <div>
+        {/** 
         <br />
         <h2>Fucntion Example (useEffect)</h2>
         <input value={email} onChange={handelEmail} placeholder="Email" />
@@ -181,6 +216,11 @@ export const LearnSomeIdeasFunction = (props) => {
         <button onClick={run} ref={buttonRef}>
           SAVE
         </button>
+        */}
+        <h2>Function Example (useCallback)</h2>
+        Count : {count}
+        {/**<Button onClick={() => setCount(count + 1)}>Increment</Button>*/}
+        <Button onClick={incrementCallback}>Increment</Button>
       </div>
     </>
   );
