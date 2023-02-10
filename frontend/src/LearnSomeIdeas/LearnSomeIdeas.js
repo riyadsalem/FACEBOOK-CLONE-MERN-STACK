@@ -174,11 +174,16 @@ export const LearnSomeIdeasFunction = (props) => {
 
   const [count, setCount] = useState(0);
 
+  /*
   function increment() {
     return setCount((count) => count + 1);
   }
+  */
 
-  const incrementCallback = useCallback(increment, []);
+  const incrementCallback = useCallback(
+    () => setCount((count) => count + 1),
+    []
+  );
 
   return (
     <>

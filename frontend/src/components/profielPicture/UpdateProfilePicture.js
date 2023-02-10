@@ -1,13 +1,25 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import Cropper from "react-easy-crop";
 
 export default function UpdateProfilePicture({ setImage, image }) {
   const [description, setDescription] = useState("");
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
+  const slider = useRef(null);
+
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     console.log(croppedArea, croppedAreaPixels);
   }, []);
+
+  const zoomIn = () => {
+    slider.current.stepUp();
+    setZoom(slider.current.value);
+  };
+  const zoomOut = () => {
+    slider.current.stepDown();
+    setZoom(slider.current.value);
+  };
+
   return (
     <div className="postBox update_img">
       <div className="box_header">
@@ -30,12 +42,47 @@ export default function UpdateProfilePicture({ setImage, image }) {
             image={image}
             crop={crop}
             zoom={zoom}
-            aspect={4 / 3}
+            aspect={1 / 1}
+            cropShape="round"
             onCropChange={setCrop}
             onCropComplete={onCropComplete}
             onZoomChange={setZoom}
+            showGrid={false}
           />
         </div>
+        <div className="slider">
+          <div className="slider_circle hover1" onClick={() => zoomOut()}>
+            <i className="minus_icon"></i>
+          </div>
+          <input
+            type="range"
+            min={1}
+            max={3}
+            step={0.2}
+            ref={slider}
+            value={zoom}
+            onChange={(e) => setZoom(e.target.value)}
+          />
+          <div className="slider_circle hover1" onClick={() => zoomIn()}>
+            <i className="plus_icon"></i>
+          </div>
+        </div>
+      </div>
+      <div className="flex_up">
+        <div className="gray_btn">
+          <i className="crop_icon"></i>CropPhoto
+        </div>
+        <div className="gray_btn">
+          <i className="temp_icon"></i>Make Temporary
+        </div>
+      </div>
+      <div className="flex_p_t">
+        <i className="public_icon"></i>
+        Your profile picture is public
+      </div>
+      <div className="update_submit_wrap">
+        <div className="blue_link">Cancel</div>
+        <button className="blue_btn">Save</button>
       </div>
     </div>
   );
