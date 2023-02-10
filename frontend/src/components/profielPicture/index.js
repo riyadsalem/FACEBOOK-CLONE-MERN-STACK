@@ -69,7 +69,13 @@ export default function ProfilePicture() {
           </div>
         )}
       </div>
-      {image && <UpdateProfilePicture setImage={setImage} image={image} />}
+      {image && (
+        <UpdateProfilePicture
+          setImage={setImage}
+          image={image}
+          setError={setError}
+        />
+      )}
     </div>
   );
 }

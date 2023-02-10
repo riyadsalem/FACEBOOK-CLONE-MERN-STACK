@@ -1,14 +1,16 @@
 import { useState, useCallback, useRef } from "react";
 import Cropper from "react-easy-crop";
+import getCroppedImg from "../../helpers/getCroppedImg";
 
-export default function UpdateProfilePicture({ setImage, image }) {
+export default function UpdateProfilePicture({ setImage, image, setError }) {
   const [description, setDescription] = useState("");
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const slider = useRef(null);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
-    console.log(croppedArea, croppedAreaPixels);
+    setCroppedAreaPixels(croppedAreaPixels);
   }, []);
 
   const zoomIn = () => {
@@ -19,6 +21,24 @@ export default function UpdateProfilePicture({ setImage, image }) {
     slider.current.stepDown();
     setZoom(slider.current.value);
   };
+
+  const getCroppedImage = useCallback(
+    async (show) => {
+      try {
+        const img = await getCroppedImg(image, croppedAreaPixels);
+        if (show) {
+          setZoom(1);
+          setCrop({ x: 0, y: 0 });
+          setImage(img);
+        } else {
+          return img;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [croppedAreaPixels]
+  );
 
   return (
     <div className="postBox update_img">
@@ -69,7 +89,7 @@ export default function UpdateProfilePicture({ setImage, image }) {
         </div>
       </div>
       <div className="flex_up">
-        <div className="gray_btn">
+        <div className="gray_btn" onClick={() => getCroppedImage("show")}>
           <i className="crop_icon"></i>CropPhoto
         </div>
         <div className="gray_btn">
