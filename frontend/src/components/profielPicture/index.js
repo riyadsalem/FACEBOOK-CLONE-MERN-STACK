@@ -3,14 +3,16 @@ import { useRef } from "react";
 import "./style.css";
 import UpdateProfilePicture from "./UpdateProfilePicture";
 import useClickOutisde from "../../helpers/clickOutside";
+import { useSelector } from "react-redux";
 
-export default function ProfilePicture({ setShow, pRef }) {
+export default function ProfilePicture({ setShow, pRef, photos }) {
   const refInput = useRef(null);
   const popup = useRef(null);
   const [image, setImage] = useState("");
   const [error, setError] = useState("");
+  const { user } = useSelector((store) => ({ ...store.rootReducer }));
 
-  useClickOutisde(popup, () => setShow(false));
+  // useClickOutisde(popup, () => setShow(false));
 
   const handleImage = (e) => {
     let file = e.target.files[0];
@@ -73,13 +75,45 @@ export default function ProfilePicture({ setShow, pRef }) {
             </button>
           </div>
         )}
+        <div className="old_pictures_wrap scrolbar">
+          <h4>your profile pictures</h4>
+          <div className="old_pictures">
+            {photos
+              .filter(
+                (img) => img.folder === `${user.username}/profile_pictures`
+              )
+              .map((photo) => (
+                <img
+                  src={photo.secure_url}
+                  key={photo.public_id}
+                  alt=""
+                  onClick={() => setImage(photo.secure_url)}
+                />
+              ))}
+          </div>
+          <h4>other pictures</h4>
+          <div className="old_pictures">
+            {photos
+              .filter(
+                (img) => img.folder !== `${user.username}/profile_pictures`
+              )
+              .map((photo) => (
+                <img
+                  src={photo.secure_url}
+                  key={photo.public_id}
+                  alt=""
+                  onClick={() => setImage(photo.secure_url)}
+                />
+              ))}
+          </div>
+        </div>
       </div>
       {image && (
         <UpdateProfilePicture
           setImage={setImage}
           image={image}
-          setError={setError}
           setShow={setShow}
+          setError={setError}
           pRef={pRef}
         />
       )}

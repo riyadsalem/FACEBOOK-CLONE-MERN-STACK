@@ -3,7 +3,8 @@ import { useEffect } from "react";
 import { useReducer } from "react";
 import { photosReducer } from "../../functions/reducers";
 
-export default function Photos({ username, token }) {
+export default function Photos({ username, token, photos }) {
+  /*
   const [{ loading, error, photos }, dispatch] = useReducer(photosReducer, {
     loading: false,
     photos: {},
@@ -43,6 +44,7 @@ export default function Photos({ username, token }) {
       });
     }
   };
+  */
   return (
     <div className="profile_card">
       <div className="profile_card_header">

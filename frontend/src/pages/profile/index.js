@@ -1,6 +1,6 @@
 import "./style.css";
 import axios from "axios";
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import { profileReducer } from "../../functions/reducers";
@@ -19,20 +19,22 @@ import { Link } from "react-router-dom";
 export default function Profile({ setVisible }) {
   const { username } = useParams();
   const { user } = useSelector((store) => ({ ...store.rootReducer }));
+  const [photos, setPhotos] = useState({});
   const userName = username === undefined ? user.username : username;
   const [{ loading, error, profile }, dispatch] = useReducer(profileReducer, {
     loading: false,
     profile: {},
     error: "",
   });
-
   const navigate = useNavigate();
+  var visitor = userName === user.username ? false : true;
+  const path = `${userName}/*`;
+  const sort = "desc";
+  const max = "30";
 
   useEffect(() => {
     getProfile();
   }, [userName]);
-
-  var visitor = userName === user.username ? false : true;
 
   const getProfile = async () => {
     try {
@@ -50,6 +52,20 @@ export default function Profile({ setVisible }) {
       if (data.ok === false) {
         navigate("/profile");
       } else {
+        try {
+          const images = await axios.post(
+            `http://localhost:8000/listImages`,
+            { path, sort, max },
+            {
+              headers: {
+                Authorization: `Bearer ${user.token}`,
+              },
+            }
+          );
+          setPhotos(images.data);
+        } catch (error) {
+          console.log(error);
+        }
         dispatch({
           type: "PROFILE_SUCCESS",
           payload: data,
@@ -69,7 +85,11 @@ export default function Profile({ setVisible }) {
         <div className="profile_top">
           <div className="profile_container">
             <Cover cover={profile.cover} visitor={visitor} />
-            <ProfielPictureInfos profile={profile} visitor={visitor} />
+            <ProfielPictureInfos
+              profile={profile}
+              visitor={visitor}
+              photos={photos.resources}
+            />
             <ProfileMenu />
           </div>
         </div>
@@ -79,7 +99,11 @@ export default function Profile({ setVisible }) {
               <PplYouMayKnow />
               <div className="profile_grid">
                 <div className="profile_left">
-                  <Photos username={userName} token={user.token} />
+                  <Photos
+                    username={userName}
+                    token={user.token}
+                    photos={photos}
+                  />
                   <Friends friends={profile.friends} />
                   <div className="relative_fb_copyright">
                     <Link to="/">Privacy </Link>
