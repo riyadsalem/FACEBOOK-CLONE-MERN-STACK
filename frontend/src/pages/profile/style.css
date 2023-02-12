@@ -333,10 +333,47 @@
   object-fit: cover;
   width: 100%;
 }
-
 .cover_crooper .reactEasyCrop_Container {
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;
+}
+.save_changes_cover {
+  z-index: 999999999;
+  position: fixed;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 15px;
+  background: rgba(0, 0, 0, 0.7);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--color-primary);
+}
+.save_changes_left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+}
+.save_changes_left i {
+  filter: invert(100%);
+}
+.save_changes_right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.save_changes_right button {
+  padding: 10px;
+}
+.save_changes_right button:first-of-type {
+  width: 100px;
+  background: #39393f;
+}
+.save_changes_right button:last-of-type {
+  width: 160px;
 }
 /*-----profile card--------*/
 
