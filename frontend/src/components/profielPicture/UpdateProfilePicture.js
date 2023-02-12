@@ -1,5 +1,9 @@
 import { useState, useCallback, useRef } from "react";
 import Cropper from "react-easy-crop";
+import { useSelector } from "react-redux";
+import { createPost } from "../../functions/post";
+import { uploadImages } from "../../functions/uploadImages";
+import { updateprofilePicture } from "../../functions/user";
 import getCroppedImg from "../../helpers/getCroppedImg";
 
 export default function UpdateProfilePicture({ setImage, image, setError }) {
@@ -8,6 +12,7 @@ export default function UpdateProfilePicture({ setImage, image, setError }) {
   const [zoom, setZoom] = useState(1);
   const slider = useRef(null);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const { user } = useSelector((store) => ({ ...store.rootReducer }));
 
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
@@ -39,6 +44,29 @@ export default function UpdateProfilePicture({ setImage, image, setError }) {
     },
     [croppedAreaPixels]
   );
+
+  const updateProfielPicture = async () => {
+    let img = await getCroppedImage();
+    let blob = await fetch(img).then((b) => b.blob());
+    const path = `${user.username}/profile_pictures`;
+    let formData = new FormData();
+    formData.append("file", blob);
+    formData.append("path", path);
+    const res = await uploadImages(formData, path, user.token);
+    const updated_picture = await updateprofilePicture(res[0].url, user.token);
+    if (updated_picture === "ok") {
+      await createPost(
+        "profilePicture",
+        null,
+        description,
+        res,
+        user.id,
+        user.token
+      );
+    } else {
+      setError(updated_picture);
+    }
+  };
 
   return (
     <div className="postBox update_img">
@@ -102,7 +130,9 @@ export default function UpdateProfilePicture({ setImage, image, setError }) {
       </div>
       <div className="update_submit_wrap">
         <div className="blue_link">Cancel</div>
-        <button className="blue_btn">Save</button>
+        <button className="blue_btn" onClick={() => updateProfielPicture()}>
+          Save
+        </button>
       </div>
     </div>
   );
