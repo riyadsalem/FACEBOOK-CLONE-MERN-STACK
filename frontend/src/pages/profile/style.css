@@ -83,7 +83,7 @@
 }
 .profile_w_img {
   position: relative;
-  /*z-index: 9999;*/
+  z-index: 1;
 }
 .profile_w_bg {
   width: 180px;
@@ -325,6 +325,18 @@
   height: 105px;
   object-fit: cover;
   border-radius: 10px;
+}
+.cover_crooper {
+  height: 100%;
+}
+.cover_crooper img {
+  object-fit: cover;
+  width: 100%;
+}
+
+.cover_crooper .reactEasyCrop_Container {
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
 }
 /*-----profile card--------*/
 
