@@ -10,6 +10,7 @@ const {
   changePassword,
   getProfile,
   updateProfilePicture,
+  updateCover,
 } = require("../controller/user");
 const { authUser } = require("../middlwares/auth");
 const router = express.Router();
@@ -24,4 +25,6 @@ router.post("/validateResetCode", validateResetCode);
 router.post("/changePassword", changePassword);
 router.get("/getProfile/:username", authUser, getProfile);
 router.put("/updateProfilePicture", authUser, updateProfilePicture);
+router.put("/updateCover", authUser, updateCover);
+
 module.exports = router;

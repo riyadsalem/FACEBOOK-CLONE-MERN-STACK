@@ -1,23 +1,52 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import useClickOutisde from "../../helpers/clickOutside";
 import Cropper from "react-easy-crop";
+import useClickOutside from "../../helpers/clickOutside";
 import getCroppedImg from "../../helpers/getCroppedImg";
+import { uploadImages } from "../../functions/uploadImages";
+import { useSelector } from "react-redux";
+import { updateCover } from "../../functions/user";
+import { createPost } from "../../functions/post";
+import PulseLoader from "react-spinners/PulseLoader";
 
 export default function Cover({ cover, visitor }) {
   const [showCoverMneu, setShowCoverMenu] = useState(false);
   const [coverPicture, setCoverPicture] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { user } = useSelector((store) => ({ ...store.rootReducer }));
   const menuRef = useRef(null);
   const refInput = useRef(null);
-  useClickOutisde(menuRef, () => setShowCoverMenu(false));
+  const cRef = useRef(null);
+  useClickOutside(menuRef, () => setShowCoverMenu(false));
   const [error, setError] = useState("");
+  const handleImage = (e) => {
+    let file = e.target.files[0];
+    if (
+      file.type !== "image/jpeg" &&
+      file.type !== "image/png" &&
+      file.type !== "image/webp" &&
+      file.type !== "image/gif"
+    ) {
+      setError(`${file.name} format is not supported.`);
+      setShowCoverMenu(false);
+      return;
+    } else if (file.size > 1024 * 1024 * 5) {
+      setError(`${file.name} is too large max 5mb allowed.`);
+      setShowCoverMenu(false);
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      setCoverPicture(event.target.result);
+    };
+  };
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
-
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
-
   const getCroppedImage = useCallback(
     async (show) => {
       try {
@@ -35,33 +64,50 @@ export default function Cover({ cover, visitor }) {
     },
     [croppedAreaPixels]
   );
-
   const coverRef = useRef(null);
   const [width, setWidth] = useState();
   useEffect(() => {
     setWidth(coverRef.current.clientWidth);
   }, [window.innerWidth]);
 
-  const handleImage = (e) => {
-    let file = e.target.files[0];
-    if (
-      file.type !== "image/jpeg" &&
-      file.type !== "image/png" &&
-      file.type !== "image/webp" &&
-      file.type !== "image/gif"
-    ) {
-      setError(`${file.name} format is not supported.`);
-      return;
-    } else if (file.size > 1024 * 1024 * 1) {
-      setError(`${file.name} is too large max 5mb allowed.`);
-      return;
-    }
+  const updateCoverPicture = async () => {
+    try {
+      setLoading(true);
+      let img = await getCroppedImage();
+      let blob = await fetch(img).then((b) => b.blob());
+      const path = `${user.username}/cover_pictures`;
+      let formData = new FormData();
+      formData.append("file", blob);
+      formData.append("path", path);
+      const res = await uploadImages(formData, path, user.token);
+      const updated_picture = await updateCover(res[0].url, user.token);
+      if (updated_picture === "ok") {
+        const new_post = await createPost(
+          "coverPicture",
+          null,
+          null,
+          res,
+          user.id,
+          user.token
+        );
+        if (new_post.status === "ok") {
+          setLoading(false);
+          setCoverPicture("");
+          cRef.current.src = res[0].url;
+        } else {
+          setLoading(false);
 
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = (event) => {
-      setCoverPicture(event.target.result);
-    };
+          setError(new_post);
+        }
+      } else {
+        setLoading(false);
+
+        setError(updated_picture);
+      }
+    } catch (error) {
+      setLoading(false);
+      setError(error.response.data.message);
+    }
   };
 
   return (
@@ -73,8 +119,15 @@ export default function Cover({ cover, visitor }) {
             Your cover photo is public
           </div>
           <div className="save_changes_right">
-            <button className="blue_btn opacity_btn">Cancel</button>
-            <button className="blue_btn ">Save changes</button>
+            <button
+              className="blue_btn opacity_btn"
+              onClick={() => setCoverPicture("")}
+            >
+              Cancel
+            </button>
+            <button className="blue_btn " onClick={() => updateCoverPicture()}>
+              {loading ? <PulseLoader color="#fff" size={5} /> : "Save changes"}
+            </button>
           </div>
         </div>
       )}
@@ -109,7 +162,7 @@ export default function Cover({ cover, visitor }) {
           />
         </div>
       )}
-      {cover && <img src={cover} alt="" />}
+      {cover && <img src={cover} alt="" ref={cRef} />}
       {!visitor && (
         <div className="udpate_cover_wrapper">
           <div
