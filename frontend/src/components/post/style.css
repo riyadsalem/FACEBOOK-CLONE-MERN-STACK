@@ -461,7 +461,6 @@
   place-items: center;
 }
 
-/*
 .post_updated_bg {
   position: absolute;
   top: 0;
@@ -475,9 +474,9 @@
   height: 100%;
   object-fit: cover;
 }
-*/
+
 .post_updated_picture {
-  /* z-index: 1; */
+  z-index: 1;
   width: 420px;
   height: 420px;
   border-radius: 50%;
