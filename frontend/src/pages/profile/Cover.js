@@ -162,7 +162,9 @@ export default function Cover({ cover, visitor }) {
           />
         </div>
       )}
-      {cover && <img src={cover} alt="" ref={cRef} />}
+      {cover && !coverPicture && (
+        <img src={cover} alt="" ref={cRef} className="cover" />
+      )}
       {!visitor && (
         <div className="udpate_cover_wrapper">
           <div
