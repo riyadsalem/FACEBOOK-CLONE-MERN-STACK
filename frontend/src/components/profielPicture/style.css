@@ -38,6 +38,7 @@
 }
 .textarea_blue:focus {
   outline-color: var(--blue-color);
+  outline-offset: 2px;
 }
 .textarea_blue:hover {
   border-color: var(--color-secondary);
