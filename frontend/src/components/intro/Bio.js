@@ -1,4 +1,10 @@
-export default function Bio({ infos, handleChange, max, setShowBio }) {
+export default function Bio({
+  infos,
+  handleChange,
+  max,
+  setShowBio,
+  updateDetails,
+}) {
   return (
     <div className="add_bio_wrap">
       <textarea
@@ -18,7 +24,14 @@ export default function Bio({ infos, handleChange, max, setShowBio }) {
           <button className="gray_btn" onClick={() => setShowBio(false)}>
             Cancel
           </button>
-          <button className="blue_btn">Save</button>
+          <button
+            className="blue_btn"
+            onClick={() => {
+              updateDetails();
+            }}
+          >
+            Save
+          </button>
         </div>
       </div>
     </div>
