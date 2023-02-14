@@ -4,10 +4,12 @@ import Bio from "./Bio";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import EditDetails from "./EditDetails";
 
 export default function Intro({ detailss, visitor }) {
   const { user } = useSelector((store) => ({ ...store.rootReducer }));
   const [details, setDetails] = useState();
+  const [visible, setVisible] = useState(1);
   useEffect(() => {
     setDetails(detailss);
   }, [detailss]);
@@ -68,6 +70,14 @@ export default function Intro({ detailss, visitor }) {
           )}
         </div>
       )}
+      {!details?.bio && !showBio && !visitor && (
+        <button
+          className="gray_btn hover1 w100"
+          onClick={() => setShowBio(true)}
+        >
+          Add Bio
+        </button>
+      )}
       {showBio && (
         <Bio
           infos={infos}
@@ -75,6 +85,8 @@ export default function Intro({ detailss, visitor }) {
           max={max}
           setShowBio={setShowBio}
           updateDetails={updateDetails}
+          placeholder="Add Bio"
+          name="bio"
         />
       )}
       {details?.job && details?.workplace ? (
@@ -139,6 +151,14 @@ export default function Intro({ detailss, visitor }) {
       )}
       {!visitor && (
         <button className="gray_btn hover1 w100">Edit Details</button>
+      )}
+      {visible && !visitor && (
+        <EditDetails
+          details={details}
+          handleChange={handleChange}
+          infos={infos}
+          updateDetails={updateDetails}
+        />
       )}
       {!visitor && (
         <button className="gray_btn hover1 w100">Edit Hobbies</button>
