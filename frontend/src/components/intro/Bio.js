@@ -6,6 +6,8 @@ export default function Bio({
   updateDetails,
   placeholder,
   name,
+  detail,
+  setShow,
 }) {
   return (
     <div className="add_bio_wrap">
@@ -17,19 +19,23 @@ export default function Bio({
         className="textarea_blue details_input"
         onChange={handleChange}
       ></textarea>
-      <div className="remaining">{max} Characters remaining</div>
+      {!detail && <div className="remaining">{max} Characters remaining</div>}
       <div className="flex">
         <div className="flex flex_left">
           <i className="public_icon"></i>Public
         </div>
         <div className="flex flex_right">
-          <button className="gray_btn" onClick={() => setShowBio(false)}>
+          <button
+            className="gray_btn"
+            onClick={() => (!detail ? setShowBio(false) : setShow(false))}
+          >
             Cancel
           </button>
           <button
             className="blue_btn"
             onClick={() => {
               updateDetails();
+              setShow(false);
             }}
           >
             Save

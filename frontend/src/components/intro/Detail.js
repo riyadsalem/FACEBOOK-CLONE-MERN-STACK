@@ -3,19 +3,20 @@ import Bio from "./Bio";
 
 export default function Detail({
   header,
-  value,
   img,
+  value,
   placeholder,
   name,
   handleChange,
-  infos,
   updateDetails,
+  infos,
+  text,
 }) {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   return (
     <div>
       <div className="details_header">{header}</div>
-      <div className="add_details_flex ">
+      <div className="add_details_flex " onClick={() => setShow(true)}>
         {value ? (
           <div className="info_profile ">
             <img src={`../../../icons/${img}.png`} alt="" />
@@ -25,7 +26,7 @@ export default function Detail({
         ) : (
           <>
             <i className="rounded_plus_icon"></i>
-            <span className="underline">Add {header}</span>
+            <span className="underline">Add {text}</span>
           </>
         )}
       </div>
@@ -34,8 +35,10 @@ export default function Detail({
           placeholder={placeholder}
           name={name}
           handleChange={handleChange}
-          infos={infos}
           updateDetails={updateDetails}
+          infos={infos}
+          detail
+          setShow={setShow}
         />
       )}
     </div>

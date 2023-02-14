@@ -3,8 +3,8 @@ import Detail from "./Detail";
 export default function EditDetails({
   details,
   handleChange,
-  infos,
   updateDetails,
+  infos,
 }) {
   return (
     <div className="blur">
@@ -25,10 +25,11 @@ export default function EditDetails({
             value={details?.otherName}
             img="studies"
             placeholder="Add other name"
-            name="othername"
+            name="otherName"
             handleChange={handleChange}
-            infos={infos}
             updateDetails={updateDetails}
+            infos={infos}
+            text="other name"
           />
         </div>
       </div>

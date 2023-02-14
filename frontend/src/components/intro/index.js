@@ -10,8 +10,10 @@ export default function Intro({ detailss, visitor }) {
   const { user } = useSelector((store) => ({ ...store.rootReducer }));
   const [details, setDetails] = useState();
   const [visible, setVisible] = useState(1);
+
   useEffect(() => {
     setDetails(detailss);
+    setInfos(detailss);
   }, [detailss]);
 
   const initial = {
@@ -156,8 +158,8 @@ export default function Intro({ detailss, visitor }) {
         <EditDetails
           details={details}
           handleChange={handleChange}
-          infos={infos}
           updateDetails={updateDetails}
+          infos={infos}
         />
       )}
       {!visitor && (
