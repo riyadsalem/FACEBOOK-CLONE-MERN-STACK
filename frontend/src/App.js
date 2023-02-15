@@ -7,25 +7,7 @@ import CreatePostPopup from "./components/createPostPopup";
 import { Login, Home, Profile, Reset } from "./pages";
 import Activate from "./pages/home/activate";
 import { LoggedInRoutes, NotLoggedInRoutes } from "./routes";
-
-function postsReducer(state, action) {
-  switch (action.type) {
-    case "POSTS_REQUEST":
-      return { ...state, loading: true, error: "" };
-    case "POSTS_SUCCESS":
-      return {
-        ...state,
-        loading: false,
-        posts: action.payload,
-        error: "",
-      };
-    case "POSTS_ERROR":
-      return { ...state, loading: false, error: action.payload };
-
-    default:
-      return state;
-  }
-}
+import { postsReducer } from "./functions/reducers";
 
 const App = () => {
   const { user } = useSelector((store) => ({ ...store.rootReducer }));
@@ -66,7 +48,16 @@ const App = () => {
       {visible && <CreatePostPopup user={user} setVisible={setVisible} />}
       <Routes>
         <Route element={<LoggedInRoutes />}>
-          <Route path="/profile" element={<Profile />} exact />
+          <Route
+            path="/profile"
+            element={<Profile setVisible={setVisible} />}
+            exact
+          />
+          <Route
+            path="/profile/:username"
+            element={<Profile setVisible={setVisible} />}
+            exact
+          />
           <Route
             path="/"
             element={<Home setVisible={setVisible} posts={posts} />}
@@ -78,7 +69,7 @@ const App = () => {
           <Route path="/login" element={<Login />} exact />
         </Route>
         <Route path="/reset" element={<Reset />} exact />
-        {/** <Route path="/LearnSomeIdeas" element={<LearnSomeIdeas />} exact /> */}
+        {/**<Route path="/LearnSomeIdeas" element={<LearnSomeIdeas />} exact />*/}
       </Routes>
     </>
   );

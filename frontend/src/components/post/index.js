@@ -7,11 +7,11 @@ import { useState } from "react";
 import CreateComment from "./CreateComment";
 import PostMenu from "./PostMenu";
 
-export default function Post({ post, user }) {
+export default function Post({ post, user, profile }) {
   const [visible, setVisible] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   return (
-    <div className="post">
+    <div className="post" style={{ width: `${profile && "100%"}` }}>
       <div className="post_header">
         <Link
           to={`/profile/${post.user.username}`}
@@ -42,7 +42,7 @@ export default function Post({ post, user }) {
         </Link>
         <div
           className="post_header_right hover1"
-          onClick={() => setShowMenu((prev) => !prev)}
+          onMouseDown={() => setShowMenu((prev) => !prev)}
         >
           <Dots color="#828387" />
         </div>
@@ -54,37 +54,51 @@ export default function Post({ post, user }) {
         >
           <div className="post_bg_text">{post.text}</div>
         </div>
+      ) : post.type === null ? (
+        <>
+          <div className="post_text">{post.text}</div>
+          {post.images && post.images.length && (
+            <div
+              className={
+                post.images.length === 1
+                  ? "grid_1"
+                  : post.images.length === 2
+                  ? "grid_2"
+                  : post.images.length === 3
+                  ? "grid_3"
+                  : post.images.length === 4
+                  ? "grid_4"
+                  : post.images.length >= 5 && "grid_5"
+              }
+            >
+              {post.images.slice(0, 5).map((image, i) => (
+                <img src={image.url} key={i} alt="" className={`img-${i}`} />
+              ))}
+              {post.images.length > 5 && (
+                <div className="more-pics-shadow">
+                  +{post.images.length - 5}
+                </div>
+              )}
+            </div>
+          )}
+        </>
+      ) : post.type === "profilePicture" ? (
+        <div className="post_profile_wrap">
+          <div className="post_updated_bg">
+            <img src={post.user.cover} alt="" />
+          </div>
+          <img
+            src={post.images[0].url}
+            alt=""
+            className="post_updated_picture"
+          />
+        </div>
       ) : (
-        post.type === null && (
-          <>
-            <div className="post_text">{post.text}</div>
-            {post.images && post.images.length && (
-              <div
-                className={
-                  post.images.length === 1
-                    ? "grid_1"
-                    : post.images.length === 2
-                    ? "grid_2"
-                    : post.images.length === 3
-                    ? "grid_3"
-                    : post.images.length === 4
-                    ? "grid_4"
-                    : post.images.length >= 5 && "grid_5"
-                }
-              >
-                {post.images.slice(0, 5).map((image, i) => (
-                  <img src={image.url} key={i} alt="" className={`img-${i}`} />
-                ))}
-                {post.images.length > 5 && (
-                  <div className="more-pics-shadow">
-                    +{post.images.length - 5}
-                  </div>
-                )}
-              </div>
-            )}
-          </>
-        )
+        <div className="post_cover_wrap">
+          <img src={post.images[0].url} alt="" />
+        </div>
       )}
+
       <div className="post_infos">
         <div className="reacts_count">
           <div className="react_count_img"></div>

@@ -12,7 +12,9 @@ export default function LearnSomeIdeas() {
         </>
       )}
       <br />
+      {/** 
       <button onClick={() => setVisible(!visible)}>Toggle</button>
+      */}
     </>
   );
 }

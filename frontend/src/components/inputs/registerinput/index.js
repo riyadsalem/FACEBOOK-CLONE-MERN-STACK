@@ -1,27 +1,19 @@
 import "./style.css";
 import { useField, ErrorMessage } from "formik";
 import { useMediaQuery } from "react-responsive";
-
 export default function RegisterInput({ placeholder, bottom, ...props }) {
   const [field, meta] = useField(props);
-
   const view1 = useMediaQuery({
-    query: "(min-width:539px)",
+    query: "(min-width: 539px)",
   });
-
-  /*
   const view2 = useMediaQuery({
-    query: "(min-width:850px)",
+    query: "(min-width: 850px)",
   });
-  */
-
   const view3 = useMediaQuery({
-    query: "(min-width:1170px)",
+    query: "(min-width: 1170px)",
   });
-
   const test1 = view3 && field.name === "first_name";
   const test2 = view3 && field.name === "last_name";
-
   return (
     <div className="input_wrap register_input_wrap">
       <input
@@ -41,10 +33,9 @@ export default function RegisterInput({ placeholder, bottom, ...props }) {
         {...field}
         {...props}
       />
-
       {meta.touched && meta.error && (
         <div
-          className={view3 ? "input_error input_error_desctop" : "input_error"}
+          className={view3 ? "input_error input_error_desktop" : "input_error"}
           style={{
             transform: "translateY(2px)",
             left: `${test1 ? "-107%" : test2 ? "107%" : ""}`,
