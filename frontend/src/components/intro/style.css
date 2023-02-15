@@ -35,7 +35,7 @@
 }
 .details_input:focus {
   outline-color: var(--blue-color) !important;
-  outline-offset: 1px;
+  outline-offset: 1px !important;
 }
 .remaining {
   font-size: 12px;
@@ -43,7 +43,7 @@
   align-self: flex-end;
   margin-top: 2px;
 }
-.flex {
+.add_bio_wrap .flex {
   margin-top: 5px;
   justify-content: space-between;
 }
@@ -55,8 +55,8 @@
   filter: invert(40%);
 }
 .infosBox {
-  height: 82vh;
-  width: 800px !important ;
+  height: 650px;
+  width: 800px !important;
 }
 .details_wrapper {
   padding: 1rem;
@@ -108,4 +108,9 @@
   margin: 10px 0;
   padding: 0 10px;
   border-radius: 5px;
+}
+@media (max-width: 810px) {
+  .infosBox {
+    width: 96% !important;
+  }
 }

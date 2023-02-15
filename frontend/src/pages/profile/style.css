@@ -431,8 +431,8 @@
   .profile_grid .createPost {
     width: 100% !important;
   }
-  .profile_right .posts {
-    width: 100%;
+  .profile_right .post {
+    width: 100% !important;
   }
   .bottom_container {
     padding: 5px;
