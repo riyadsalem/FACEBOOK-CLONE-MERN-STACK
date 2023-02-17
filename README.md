@@ -1,2 +1,2 @@
 # FACEBOOK-CLONE-MERN-STACK
-# Very cool^1.^0.00
+# Very cool (^_!_^)
