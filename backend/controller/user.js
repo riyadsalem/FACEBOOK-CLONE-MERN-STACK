@@ -353,7 +353,7 @@ exports.cancelRequest = async (req, res) => {
           $pull: { followers: sender._id },
         });
         await sender.updateOne({
-          $pull: { following: sender._id },
+          $pull: { following: receiver._id },
         });
         res.json({ message: "you successfully canceled request" });
       } else {
