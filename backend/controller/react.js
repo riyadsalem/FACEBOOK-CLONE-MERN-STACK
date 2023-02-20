@@ -32,8 +32,16 @@ exports.reactPost = async (req, res) => {
 
 exports.getReacts = async (req, res) => {
   const reacts = await React.find({ postRef: req.params.id });
-  console.log(reacts);
-  res.json({ reacts });
+  const check1 = reacts.find((x) => x.reactBy.toString() == req.user.id)?.react;
+  console.log(check1);
+  const check = await React.findOne({
+    postRef: req.params.id,
+    reactBy: req.user.id,
+  });
+  res.json({
+    reacts,
+    check: check?.react,
+  });
   try {
   } catch (error) {
     return res.status(500).json({ message: error.message });
