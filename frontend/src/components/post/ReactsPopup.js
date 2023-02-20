@@ -1,6 +1,3 @@
-import { useSelector } from "react-redux";
-import { reactPost } from "../../functions/post";
-
 const reactsArray = [
   {
     name: "like",
@@ -28,12 +25,7 @@ const reactsArray = [
   },
 ];
 
-export default function ReactsPopup({ visible, setVisible, postId }) {
-  const { user } = useSelector((store) => ({ ...store.rootReducer }));
-  const reactHandler = async (type) => {
-    reactPost(postId, type, user.token);
-  };
-
+export default function ReactsPopup({ visible, setVisible, reactHandler }) {
   return (
     <>
       {visible && (
