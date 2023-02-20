@@ -29,3 +29,13 @@ exports.reactPost = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+exports.getReacts = async (req, res) => {
+  const reacts = await React.find({ postRef: req.params.id });
+  console.log(reacts);
+  res.json({ reacts });
+  try {
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
