@@ -6,8 +6,9 @@ import ReactsPopup from "./ReactsPopup";
 import { useEffect, useState } from "react";
 import CreateComment from "./CreateComment";
 import PostMenu from "./PostMenu";
-import { getReacts } from "../../functions/post";
+import { comment, getReacts } from "../../functions/post";
 import { reactPost } from "../../functions/post";
+import Comment from "./Comment";
 
 export default function Post({ post, user, profile }) {
   const [visible, setVisible] = useState(false);
@@ -15,9 +16,14 @@ export default function Post({ post, user, profile }) {
   const [reacts, setReacts] = useState();
   const [check, setCheck] = useState();
   const [total, setTotal] = useState(0);
+  const [comments, setComments] = useState(post?.comments);
 
   useEffect(() => {
     getPostReacts();
+  }, [post]);
+
+  useEffect(() => {
+    setComments(post?.comments);
   }, [post]);
 
   const getPostReacts = async () => {
@@ -232,8 +238,17 @@ export default function Post({ post, user, profile }) {
       </div>
       <div className="comments_wrap">
         <div className="comments_order"></div>
-        <CreateComment user={user} postId={post._id} />
+        <CreateComment
+          user={user}
+          postId={post._id}
+          setComments={setComments}
+        />
       </div>
+      {comments &&
+        comments
+          .slice(0, 3)
+          .map((comment, i) => <Comment comment={comment} key={i} />)}
+
       {showMenu && (
         <PostMenu
           userId={user.id}

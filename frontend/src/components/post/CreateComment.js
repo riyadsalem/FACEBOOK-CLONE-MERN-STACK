@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import Picker from "emoji-picker-react";
-import dataURItoBlob from "../../helpers/dataURItoBlob";
 import { uploadImages } from "../../functions/uploadImages";
+import dataURItoBlob from "../../helpers/dataURItoBlob";
 import { comment } from "../../functions/post";
 import { ClipLoader } from "react-spinners";
 
-export default function CreateComment({ user, postId }) {
+export default function CreateComment({ user, postId, setComments }) {
   const [text, setText] = useState("");
   const [picker, setPicker] = useState(false);
   const [cursorPosition, setCursorPosition] = useState();
-  const [commentImage, setCommentImage] = useState();
+  const [commentImage, setCommentImage] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const textRef = useRef(null);

@@ -14,6 +14,7 @@ exports.getAllPosts = async (req, res) => {
   try {
     const post = await Post.find()
       .populate("user", "first_name last_name picture username cover")
+      .populate("comments.commentBy", "first_name last_name picture username")
       .sort({ createdAt: -1 });
     res.json(post);
   } catch (error) {
