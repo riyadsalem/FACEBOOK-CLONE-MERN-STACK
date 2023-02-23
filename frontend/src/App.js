@@ -60,7 +60,9 @@ const App = () => {
           />
           <Route
             path="/"
-            element={<Home setVisible={setVisible} posts={posts} />}
+            element={
+              <Home setVisible={setVisible} posts={posts} loading={loading} />
+            }
             exact
           />
           <Route path="/activate/:token" element={<Activate />} exact />
