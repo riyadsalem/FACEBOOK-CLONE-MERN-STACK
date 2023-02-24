@@ -1,3 +1,4 @@
+import { saveAs } from "file-saver";
 import { useRef, useState } from "react";
 import { savePost } from "../../functions/post";
 import useOnClickOutside from "../../helpers/clickOutside";
@@ -12,6 +13,7 @@ export default function PostMenu({
   token,
   checkSaved,
   setCheckSaved,
+  images,
 }) {
   const [test, setTest] = useState(postUserId === userId ? true : false);
   const menu = useRef(null);
@@ -24,6 +26,11 @@ export default function PostMenu({
     } else {
       setCheckSaved(true);
     }
+  };
+  const downloadImages = async () => {
+    images.map((img) => {
+      saveAs(img.url, "image.jpg");
+    });
   };
 
   return (
@@ -53,7 +60,7 @@ export default function PostMenu({
         />
       )}
       {imagesLength && (
-        <div>
+        <div onClick={() => downloadImages()}>
           <MenuItem icon="download_icon" title="Download" />
         </div>
       )}
