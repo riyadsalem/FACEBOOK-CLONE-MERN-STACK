@@ -9,7 +9,7 @@ import SendVerificatio from "../../components/home/sendVerification";
 import Post from "../../components/post";
 import { useEffect, useRef, useState } from "react";
 
-export default function Home({ setVisible, posts, loading }) {
+export default function Home({ setVisible, posts, loading, getAllPosts }) {
   const store = useSelector((store) => store);
   const { user } = store.rootReducer;
   const middle = useRef(null);
@@ -20,7 +20,7 @@ export default function Home({ setVisible, posts, loading }) {
 
   return (
     <div className="home" style={{ height: `${height + 150}px` }}>
-      <Header page="home" />
+      <Header page="home" getAllPosts={getAllPosts} />
       <LeftHome user={user} />
       <div className="home_middle" ref={middle}>
         <Stores />

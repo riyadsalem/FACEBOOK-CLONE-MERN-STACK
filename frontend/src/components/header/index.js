@@ -20,7 +20,7 @@ import { useRef, useState } from "react";
 import AllMenu from "./AllMenu";
 import useClickOutisde from "../../helpers/clickOutside";
 import UserMenu from "./userMenu";
-export default function Header({ page }) {
+export default function Header({ page, getAllPosts }) {
   const store = useSelector((store) => store);
   const { user } = store.rootReducer;
   const color = "#65676b";
@@ -56,6 +56,7 @@ export default function Header({ page }) {
         <Link
           to="/"
           className={`middle_icon ${page === "home" ? "active" : "hover1"}`}
+          onClick={() => getAllPosts()}
         >
           {page === "home" ? <HomeActive /> : <Home color={color} />}
         </Link>
