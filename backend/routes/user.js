@@ -47,5 +47,8 @@ router.put("/acceptRequest/:id", authUser, acceptRequest);
 router.put("/unfriend/:id", authUser, unfriend);
 router.put("/deleteRequest/:id", authUser, deleteRequest);
 router.post("/search/:searchTerm", authUser, search);
+router.put("/addToSearchHistory", authUser, addToSearchHistory);
+router.get("/getSearchHistory", authUser, getSearchHistory);
+router.put("/removeFromSearch", authUser, removeFromSearch);
 
 module.exports = router;
