@@ -3,7 +3,7 @@ import { Dots, Public } from "../../svg";
 import "./style.css";
 import Moment from "react-moment";
 import ReactsPopup from "./ReactsPopup";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import CreateComment from "./CreateComment";
 import PostMenu from "./PostMenu";
 import { comment, getReacts } from "../../functions/post";
@@ -18,6 +18,8 @@ export default function Post({ post, user, profile }) {
   const [total, setTotal] = useState(0);
   const [count, setCount] = useState(1);
   const [comments, setComments] = useState([]);
+  const [checkSaved, setCheckSaved] = useState();
+  const postRef = useRef(null);
 
   useEffect(() => {
     getPostReacts();
@@ -32,6 +34,7 @@ export default function Post({ post, user, profile }) {
     setReacts(res.reacts);
     setCheck(res.check);
     setTotal(res.total);
+    setCheckSaved(res.checkSaved);
   };
 
   const reactHandler = async (type) => {
@@ -63,7 +66,11 @@ export default function Post({ post, user, profile }) {
   };
 
   return (
-    <div className="post" style={{ width: `${profile && "100%"}` }}>
+    <div
+      className="post"
+      style={{ width: `${profile && "100%"}` }}
+      ref={postRef}
+    >
       <div className="post_header">
         <Link
           to={`/profile/${post.user.username}`}
@@ -270,6 +277,12 @@ export default function Post({ post, user, profile }) {
           postUserId={post.user._id}
           imagesLength={post?.images?.length}
           setShowMenu={setShowMenu}
+          postId={post._id}
+          token={user.token}
+          checkSaved={checkSaved}
+          setCheckSaved={setCheckSaved}
+          images={post.images}
+          postRef={postRef}
         />
       )}
     </div>

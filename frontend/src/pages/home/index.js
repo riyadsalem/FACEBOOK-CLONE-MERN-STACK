@@ -9,18 +9,18 @@ import SendVerificatio from "../../components/home/sendVerification";
 import Post from "../../components/post";
 import { useEffect, useRef, useState } from "react";
 
-export default function Home({ setVisible, posts }) {
+export default function Home({ setVisible, posts, loading, getAllPosts }) {
   const store = useSelector((store) => store);
   const { user } = store.rootReducer;
   const middle = useRef(null);
   const [height, setHeight] = useState();
   useEffect(() => {
     setHeight(middle.current.clientHeight);
-  }, [height]);
+  }, []);
 
   return (
     <div className="home" style={{ height: `${height + 150}px` }}>
-      <Header page="home" />
+      <Header page="home" getAllPosts={getAllPosts} />
       <LeftHome user={user} />
       <div className="home_middle" ref={middle}>
         <Stores />
