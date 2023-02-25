@@ -154,6 +154,57 @@ export const search = async (searchTerm, token) => {
     const { data } = await axios.post(
       `http://localhost:8000/search/${searchTerm}`,
       {},
+
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return data;
+  } catch (error) {
+    return error.response.data.message;
+  }
+};
+export const addToSearchHistory = async (searchUser, token) => {
+  try {
+    const { data } = await axios.put(
+      `http://localhost:8000/addToSearchHistory`,
+      { searchUser },
+
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return data;
+  } catch (error) {
+    return error.response.data.message;
+  }
+};
+export const getSearchHistory = async (token) => {
+  try {
+    const { data } = await axios.get(
+      `http://localhost:8000/getSearchHistory`,
+
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return data;
+  } catch (error) {
+    return error.response.data.message;
+  }
+};
+export const removeFromSearch = async (searchUser, token) => {
+  try {
+    const { data } = await axios.put(
+      `http://localhost:8000/removeFromSearch`,
+      { searchUser },
+
       {
         headers: {
           Authorization: `Bearer ${token}`,
