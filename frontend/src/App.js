@@ -8,6 +8,7 @@ import { Login, Home, Profile, Reset } from "./pages";
 import Activate from "./pages/home/activate";
 import { LoggedInRoutes, NotLoggedInRoutes } from "./routes";
 import { postsReducer } from "./functions/reducers";
+import Friends from "./pages/friends";
 
 const App = () => {
   const { user } = useSelector((store) => ({ ...store.rootReducer }));
@@ -66,6 +67,13 @@ const App = () => {
             path="/profile/:username"
             element={
               <Profile setVisible={setVisible} getAllPosts={getAllPosts} />
+            }
+            exact
+          />
+          <Route
+            path="/friends"
+            element={
+              <Friends setVisible={setVisible} getAllPosts={getAllPosts} />
             }
             exact
           />
