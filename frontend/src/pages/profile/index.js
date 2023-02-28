@@ -125,7 +125,7 @@ export default function Profile({ getAllPosts }) {
         <Header page="profile" getAllPosts={getAllPosts} />
         <div className="profile_top" ref={profileTop}>
           <div className="profile_container">
-            {true ? (
+            {loading ? (
               <>
                 <div className="profile_cover">
                   <Skeleton

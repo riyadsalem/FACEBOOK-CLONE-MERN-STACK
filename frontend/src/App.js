@@ -22,11 +22,6 @@ const App = () => {
     error: "",
   });
 
-  /*
-  useEffect(() => {
-    getAllPosts();
-  }, []);
-  */
   const getAllPosts = async () => {
     try {
       dispatch({

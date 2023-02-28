@@ -1,5 +1,4 @@
 import Cookies from "js-cookie";
-import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function DisplayAccessibility({ setVisible }) {
