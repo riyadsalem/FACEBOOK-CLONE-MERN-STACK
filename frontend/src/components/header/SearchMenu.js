@@ -55,7 +55,7 @@ export default function SearchMenu({ color, setShowSearchMenu, token }) {
       <div className="search_wrap">
         <div className="header_logo">
           <div
-            className="circle hover1"
+            className="circle searchBack hover1"
             onClick={() => setShowSearchMenu(false)}
           >
             <Return />
