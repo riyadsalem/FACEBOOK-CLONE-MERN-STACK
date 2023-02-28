@@ -3,6 +3,8 @@ const Code = require("../models/Code");
 const Post = require("../models/Post");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
+
 const {
   validateEmail,
   validateLength,
@@ -579,6 +581,26 @@ exports.removeFromSearch = async (req, res) => {
       },
       { $pull: { search: { user: searchUser } } }
     );
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+exports.getFriendsPageInfos = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id)
+      .select("friends requests")
+      .populate("friends", "first_name last_name picture username")
+      .populate("requests", "first_name last_name picture username");
+
+    const sentRequests = await User.find({
+      requests: mongoose.Types.ObjectId(req.user.id),
+    }).select("first_name last_name picture username");
+    res.json({
+      friends: user.friends,
+      requests: user.requests,
+      sentRequests,
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

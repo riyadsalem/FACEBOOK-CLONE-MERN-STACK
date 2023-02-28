@@ -181,6 +181,7 @@ header {
 }
 .search_areas .search input {
   padding-left: 4px;
+  color: var(--color-primary);
 }
 .search_areas .search svg {
   transform: translateY(1px);
@@ -260,6 +261,7 @@ header {
   background: transparent;
   width: 100%;
   font-size: 15px;
+  color: var(--color-primary);
 }
 .all_menu_group {
   margin-top: 10px;

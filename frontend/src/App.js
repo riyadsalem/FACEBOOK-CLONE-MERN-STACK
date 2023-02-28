@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useEffect, useReducer, useState } from "react";
+import axios from "axios";
 import { useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import CreatePostPopup from "./components/createPostPopup";
@@ -8,9 +8,12 @@ import { Login, Home, Profile, Reset } from "./pages";
 import Activate from "./pages/home/activate";
 import { LoggedInRoutes, NotLoggedInRoutes } from "./routes";
 import { postsReducer } from "./functions/reducers";
+import Friends from "./pages/friends";
 
 const App = () => {
-  const { user } = useSelector((store) => ({ ...store.rootReducer }));
+  const { user, darkTheme } = useSelector((store) => ({
+    ...store.rootReducer,
+  }));
   const [visible, setVisible] = useState(false);
 
   const [{ loading, error, posts }, dispatch] = useReducer(postsReducer, {
@@ -18,9 +21,7 @@ const App = () => {
     posts: [],
     error: "",
   });
-  useEffect(() => {
-    getAllPosts();
-  }, []);
+
   const getAllPosts = async () => {
     try {
       dispatch({
@@ -44,7 +45,7 @@ const App = () => {
   };
 
   return (
-    <>
+    <div className={darkTheme ? "dark" : ""}>
       {visible && (
         <CreatePostPopup
           user={user}
@@ -70,6 +71,20 @@ const App = () => {
             exact
           />
           <Route
+            path="/friends"
+            element={
+              <Friends setVisible={setVisible} getAllPosts={getAllPosts} />
+            }
+            exact
+          />
+          <Route
+            path="/friends/:type"
+            element={
+              <Friends setVisible={setVisible} getAllPosts={getAllPosts} />
+            }
+            exact
+          />
+          <Route
             path="/"
             element={
               <Home
@@ -86,10 +101,10 @@ const App = () => {
         <Route element={<NotLoggedInRoutes />}>
           <Route path="/login" element={<Login />} exact />
         </Route>
-        <Route path="/reset" element={<Reset />} exact />
+        <Route path="/reset" element={<Reset />} />
         {/**<Route path="/LearnSomeIdeas" element={<LearnSomeIdeas />} exact />*/}
       </Routes>
-    </>
+    </div>
   );
 };
 
