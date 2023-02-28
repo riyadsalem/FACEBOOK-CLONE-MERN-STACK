@@ -11,7 +11,9 @@ import { postsReducer } from "./functions/reducers";
 import Friends from "./pages/friends";
 
 const App = () => {
-  const { user } = useSelector((store) => ({ ...store.rootReducer }));
+  const { user, darkTheme } = useSelector((store) => ({
+    ...store.rootReducer,
+  }));
   const [visible, setVisible] = useState(false);
 
   const [{ loading, error, posts }, dispatch] = useReducer(postsReducer, {
@@ -48,7 +50,7 @@ const App = () => {
   };
 
   return (
-    <div className="dark">
+    <div className={darkTheme ? "dark" : ""}>
       {visible && (
         <CreatePostPopup
           user={user}
