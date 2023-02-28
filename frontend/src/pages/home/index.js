@@ -8,6 +8,7 @@ import CreatePost from "../../components/createPost";
 import SendVerificatio from "../../components/home/sendVerification";
 import Post from "../../components/post";
 import { useEffect, useRef, useState } from "react";
+import { CircleLoader } from "react-spinners";
 
 export default function Home({ setVisible, posts, loading, getAllPosts }) {
   const store = useSelector((store) => store);
@@ -31,11 +32,17 @@ export default function Home({ setVisible, posts, loading, getAllPosts }) {
         <Stores />
         {!user.verified && <SendVerificatio user={user} />}
         <CreatePost user={user} setVisible={setVisible} />
-        <div className="posts">
-          {posts.map((post, i) => (
-            <Post key={i} post={post} user={user} />
-          ))}
-        </div>
+        {loading ? (
+          <div className="sekelton_loader">
+            <CircleLoader color="#1876f2" />
+          </div>
+        ) : (
+          <div className="posts">
+            {posts.map((post, i) => (
+              <Post key={i} post={post} user={user} />
+            ))}
+          </div>
+        )}
       </div>
       <RightHome user={user} />
     </div>
