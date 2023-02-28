@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useEffect, useReducer, useState } from "react";
+import axios from "axios";
 import { useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import CreatePostPopup from "./components/createPostPopup";
@@ -19,9 +19,12 @@ const App = () => {
     posts: [],
     error: "",
   });
+
+  /*
   useEffect(() => {
     getAllPosts();
   }, []);
+  */
   const getAllPosts = async () => {
     try {
       dispatch({
@@ -45,7 +48,7 @@ const App = () => {
   };
 
   return (
-    <>
+    <div className="dark">
       {visible && (
         <CreatePostPopup
           user={user}
@@ -101,10 +104,10 @@ const App = () => {
         <Route element={<NotLoggedInRoutes />}>
           <Route path="/login" element={<Login />} exact />
         </Route>
-        <Route path="/reset" element={<Reset />} exact />
+        <Route path="/reset" element={<Reset />} />
         {/**<Route path="/LearnSomeIdeas" element={<LearnSomeIdeas />} exact />*/}
       </Routes>
-    </>
+    </div>
   );
 };
 

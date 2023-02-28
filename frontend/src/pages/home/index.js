@@ -14,6 +14,11 @@ export default function Home({ setVisible, posts, loading, getAllPosts }) {
   const { user } = store.rootReducer;
   const middle = useRef(null);
   const [height, setHeight] = useState();
+
+  useEffect(() => {
+    getAllPosts();
+  }, []);
+
   useEffect(() => {
     setHeight(middle.current.clientHeight);
   }, []);
